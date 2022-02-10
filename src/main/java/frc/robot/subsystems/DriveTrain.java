@@ -25,6 +25,9 @@ public class DriveTrain extends SubsystemBase {
   public void manualDrive(XboxController controller, double maxSpeed, double maxTurnSpeed, boolean squareInputs) {
     drive.arcadeDrive(maxSpeed*controller.getLeftX(), maxTurnSpeed*controller.getLeftY(), squareInputs);
   }
+  public void autonomousDrive(double speed, double turnSpeed) {
+    drive.arcadeDrive(speed,turnSpeed);
+  }
   
   public void autonomousDrive() {
     

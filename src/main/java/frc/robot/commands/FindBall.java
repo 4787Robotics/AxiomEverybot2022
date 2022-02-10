@@ -2,28 +2,33 @@ package frc.robot.commands;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.subsystems.DriveTrain;
 
 public class FindBall {
+    private DriveTrain drive;
+    public FindBall(DriveTrain driveTrain) {
+        drive = driveTrain;
+    }
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
+    NetworkTableEntry tv = table.getEntry("tv");
+    NetworkTableEntry ta = table.getEntry("ta");
     public void intialize() {
 
     }
     
     public void execute() {
         if(tv.getDouble(0.0) == 0) {
-            //turn until there is a ball
+            drive.autonomousDrive(0,0.4);
         }
         
-        if(tx.getDouble(0.0) > 0) {
-            //turn right
-        } else if(tx.getDouble(0.0) < 0) {
-            //turn left
+        if(tx.getDouble(0.0) != 0) {
+            drive.autonomousDrive(0,tx.getDouble(0.0) / 27);
         }
 
         if(ta.getDouble(0.0) < 0.70) {
-            //moveforward
+            //drive.autonomousDrive(0.3,0);
         }
     }
     public void end(boolean interrupted) {
