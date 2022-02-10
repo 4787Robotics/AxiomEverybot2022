@@ -12,12 +12,18 @@ public class FindBall {
     }
     
     public void execute() {
+        if(tv.getDouble(0.0) == 0) {
+            //turn until there is a ball
+        }
+        
         if(tx.getDouble(0.0) > 0) {
             //turn right
         } else if(tx.getDouble(0.0) < 0) {
             //turn left
-        } else {
-            //stop
+        }
+
+        if(ta.getDouble(0.0) < 0.70) {
+            //moveforward
         }
     }
     public void end(boolean interrupted) {

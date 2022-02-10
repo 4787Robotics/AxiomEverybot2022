@@ -26,6 +26,10 @@ public class DriveTrain extends SubsystemBase {
     drive.arcadeDrive(maxSpeed*controller.getLeftX(), maxTurnSpeed*controller.getLeftY(), squareInputs);
   }
   
+  public void autonomousDrive() {
+    
+  }
+  
   public void stop() {
     drive.stopMotor();
   }
