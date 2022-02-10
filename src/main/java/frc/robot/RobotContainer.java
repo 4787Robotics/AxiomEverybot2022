@@ -53,10 +53,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
-    driveTrain.setDefaultCommand(defaultCommand);
-  }
 
+  
+  private void configureButtonBindings() {
+  }
+  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -66,9 +67,10 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
   }
-
+/*
   public Command getArcadeDriveCommand() {
     return new ArcadeDrive(
         driveTrain, () -> control.getLeftX(1), () -> control.getLeftY(2));
   }
+*/
 }
