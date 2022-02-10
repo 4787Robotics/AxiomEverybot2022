@@ -8,7 +8,9 @@ import frc.robot.subsystems.DriveTrain;
 public class FindBall extends CommandBase {
     private DriveTrain drive;
     public FindBall(DriveTrain driveTrain) {
+        
         drive = driveTrain;
+        addRequirements(driveTrain);
     }
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     NetworkTableEntry tx = table.getEntry("tx");
@@ -16,7 +18,7 @@ public class FindBall extends CommandBase {
     NetworkTableEntry tv = table.getEntry("tv");
     NetworkTableEntry ta = table.getEntry("ta");
     public void intialize() {
-
+        super.initialize();
     }
     
     public void execute() {

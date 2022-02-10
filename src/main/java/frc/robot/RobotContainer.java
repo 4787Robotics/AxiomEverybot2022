@@ -33,7 +33,6 @@ public class RobotContainer {
   private final XboxController control = new XboxController(0);
   private final DriveTrain driveTrain = new DriveTrain(new WPI_VictorSPX[]{m_left1,m_left2}, new WPI_VictorSPX[]{m_right1,m_right2});
 
-  private final FindBall findBall = new FindBall(driveTrain);
   //Configuration of buttons for XboxController
 
   
@@ -62,6 +61,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    FindBall findBall = new FindBall(driveTrain);
     // An ExampleCommand will run in autonomous
     return findBall;
   }
