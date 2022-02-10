@@ -5,17 +5,17 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ArcadeDrive extends CommandBase {
-    private final DriveTrain driveTrain;
-    private final XboxController control = new XboxController(0);
+    private DriveTrain driveTrain;
+    private XboxController control = new XboxController(0);
 
-    public ArcadeDrive(DriveTrain drivetrain) {
+    public ArcadeDrive(DriveTrain drivetrain, XboxController controller) {
         driveTrain = drivetrain;
-        addRequirements(driveTrain);
+        control = controller;
+        addRequirements(drivetrain);
     }
     
-    public ArcadeDrive(DriveTrain driveTrain2, Object object, Object object2) {
-    }
     
+   
     //Hello World
     public void initialize() {
 
