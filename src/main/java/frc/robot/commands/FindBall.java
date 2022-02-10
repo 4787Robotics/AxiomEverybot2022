@@ -2,9 +2,10 @@ package frc.robot.commands;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
-public class FindBall {
+public class FindBall extends CommandBase {
     private DriveTrain drive;
     public FindBall(DriveTrain driveTrain) {
         drive = driveTrain;
