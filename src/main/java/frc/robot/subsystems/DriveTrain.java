@@ -25,6 +25,10 @@ public class DriveTrain extends SubsystemBase {
   public void manualDrive(XboxController controller, double maxSpeed, double maxTurnSpeed, boolean squareInputs) {
     drive.arcadeDrive(maxSpeed*controller.getLeftX(), maxTurnSpeed*controller.getLeftY(), squareInputs);
   }
+  
+  public void stop() {
+    drive.stopMotor();
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
