@@ -35,7 +35,6 @@ public class RobotContainer {
 
   //Configuration of buttons for XboxController
 
-  
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -61,8 +60,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    FindBall findBall = new FindBall(driveTrain);
     // An ExampleCommand will run in autonomous
+    FindBall findBall = new FindBall(driveTrain);
     return findBall;
   }
   
