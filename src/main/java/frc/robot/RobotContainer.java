@@ -31,12 +31,9 @@ public class RobotContainer {
   WPI_VictorSPX m_right1 = new WPI_VictorSPX(Constants.motor_right1);
   WPI_VictorSPX m_right2 = new WPI_VictorSPX(Constants.motor_right2);
   private final XboxController control = new XboxController(0);
-  private final DriveTrain driveTrain = new DriveTrain(new WPI_VictorSPX[]{m_left1,m_left2}, new WPI_VictorSPX[]{m_right1,m_right2});
-
-  private final FindBall findBall = new FindBall(driveTrain);
   //Configuration of buttons for XboxController
 
-  
+  private final DriveTrain driveTrain = new DriveTrain(new WPI_VictorSPX[]{m_left1,m_left2}, new WPI_VictorSPX[]{m_right1,m_right2});
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -63,6 +60,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
+    FindBall findBall = new FindBall(driveTrain);
     return findBall;
   }
   
