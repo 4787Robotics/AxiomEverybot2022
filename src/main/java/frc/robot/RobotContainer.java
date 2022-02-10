@@ -37,7 +37,7 @@ public class RobotContainer {
   private final XboxController control = new XboxController(0);
 
   //Configuration of buttons for XboxController
-  
+
   private final DriveTrain driveTrain = new DriveTrain(new WPI_VictorSPX[]{m_left1,m_left2}, new WPI_VictorSPX[]{m_right1,m_right2});
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -67,10 +67,11 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
   }
-/*
+  
   public Command getArcadeDriveCommand() {
     return new ArcadeDrive(
         driveTrain, () -> control.getLeftX(1), () -> control.getLeftY(2));
   }
-*/
+
+
 }
