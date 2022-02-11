@@ -23,13 +23,14 @@ public class FindBall extends CommandBase {
     
     public void execute() {
         if(tv.getDouble(0.0) == 0) {
-            drive.autonomousDrive(0,0.4);
-        } else if(tx.getDouble(0.0) != 0) {
-            drive.autonomousDrive(0,tx.getDouble(0.0) / 27);
+            drive.autonomousDrive(0.4,0);
+        } else if(tx.getDouble(0.0) < -5) {
+            drive.autonomousDrive(-0.5,0);
+        } else if(tx.getDouble(0.0) > 5) {
+            drive.autonomousDrive(0.5,0);
+        } else if(ta.getDouble(0.0) < 25) {
+            drive.autonomousDrive(0,0.7);
         }
-        /*if(ta.getDouble(0.0) < 0.70) {
-            drive.autonomousDrive(0.3,0);
-        }*/
     }
     public void end(boolean interrupted) {
     

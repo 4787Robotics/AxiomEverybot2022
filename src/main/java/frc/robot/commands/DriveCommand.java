@@ -22,6 +22,7 @@ public class DriveCommand extends CommandBase {
 
     public void execute() {
         driveTrain.manualDrive(control, 0.5, 0.5, false);
+        System.out.println("driving");
     }
     public void end(boolean interrupted) {
 
