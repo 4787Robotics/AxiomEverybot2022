@@ -29,10 +29,6 @@ public class DriveTrain extends SubsystemBase {
     drive.arcadeDrive(speed,turnSpeed);
   }
   
-  public void autonomousDrive() {
-    
-  }
-  
   public void stop() {
     drive.stopMotor();
   }
