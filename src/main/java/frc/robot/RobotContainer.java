@@ -30,16 +30,15 @@ public class RobotContainer {
   WPI_VictorSPX m_left2 = new WPI_VictorSPX(Constants.motor_left2);
   WPI_VictorSPX m_right1 = new WPI_VictorSPX(Constants.motor_right1);
   WPI_VictorSPX m_right2 = new WPI_VictorSPX(Constants.motor_right2);
-  private final XboxController control = new XboxController(0);
+  private final XboxController controller = new XboxController(0);
   private final DriveTrain driveTrain = new DriveTrain(new WPI_VictorSPX[]{m_left1,m_left2}, new WPI_VictorSPX[]{m_right1,m_right2});
 
-  //Configuration of buttons for XboxController
-
+  FindBall findBall = new FindBall(driveTrain);
+  DriveCommand drive = new DriveCommand(driveTrain, controller);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-    getDriveCommand();
     configureButtonBindings();
   }
 
@@ -57,16 +56,19 @@ public class RobotContainer {
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
-   * @return the command to run in autonomous
+   * @return the command to run in autonomous mode
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    FindBall findBall = new FindBall(driveTrain);
     return findBall;
   }
   
-  public Command getDriveCommand() {
-    return new DriveCommand(driveTrain,control);
+  /**
+   * Use this to pass the teleop command to the main {@link Robot} class.
+   * 
+   * @return the command to run in teleoperated mode
+   */
+  public Command getTeleopCommand() {
+    return drive;
   }
 
 
