@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveTrain;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import frc.robot.commands.FindBall;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 //import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 //import edu.wpi.first.wpilibj.*;
 //import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -30,9 +31,9 @@ public class RobotContainer {
   WPI_VictorSPX m_left2 = new WPI_VictorSPX(Constants.motor_left2);
   WPI_VictorSPX m_right1 = new WPI_VictorSPX(Constants.motor_right1);
   WPI_VictorSPX m_right2 = new WPI_VictorSPX(Constants.motor_right2);
+  private final DriveTrain driveTrain = new DriveTrain(new WPI_VictorSPX[]{m_left1,m_left2},new WPI_VictorSPX[]{m_right1,m_right2},true);
   private final XboxController controller = new XboxController(0);
-  private final DriveTrain driveTrain = new DriveTrain(new WPI_VictorSPX[]{m_left1,m_left2}, new WPI_VictorSPX[]{m_right1,m_right2});
-
+  
   FindBall findBall = new FindBall(driveTrain);
   DriveCommand drive = new DriveCommand(driveTrain, controller);
 

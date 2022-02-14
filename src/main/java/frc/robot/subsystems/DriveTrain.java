@@ -16,14 +16,18 @@ public class DriveTrain extends SubsystemBase {
   private DifferentialDrive drive;
   
   /** Creates a new DriveTrain. */
-  public DriveTrain(MotorController[] motorsLeft, MotorController[] motorsRight) {
+  public DriveTrain(MotorController[] motorsLeft, MotorController[] motorsRight, boolean invertRightSide) {
     m_left = new MotorControllerGroup(motorsLeft);
     m_right = new MotorControllerGroup(motorsRight);
+    m_right.setInverted(invertRightSide);
     drive = new DifferentialDrive(m_left,m_right);
   }
 
   public void manualDrive(XboxController controller, double maxSpeed, double maxTurnSpeed, boolean squareInputs) {
-    drive.arcadeDrive(maxSpeed*controller.getLeftX(), maxTurnSpeed*controller.getLeftY(), squareInputs);
+    drive.arcadeDrive(-maxSpeed*controller.getLeftY(), maxTurnSpeed*controller.getRightX(), squareInputs);
+  }
+  public void GTADrive(XboxController controller, double maxSpeed, double maxTurnSpeed, boolean squareInputs) {
+    drive.curvatureDrive(maxSpeed*(controller.getRightTriggerAxis()-controller.getLeftTriggerAxis()), controller.getLeftX(), false);
   }
   public void autonomousDrive(double speed, double turnSpeed) {
     drive.arcadeDrive(speed,turnSpeed);

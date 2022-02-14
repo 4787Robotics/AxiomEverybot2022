@@ -21,7 +21,7 @@ public class DriveCommand extends CommandBase {
     }
 
     public void execute() {
-        driveTrain.manualDrive(control, 0.5, 0.5, false);
+        driveTrain.manualDrive(control, 1, 1, false);
     }
     public void end(boolean interrupted) {
 
