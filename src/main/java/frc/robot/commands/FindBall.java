@@ -11,6 +11,17 @@ import frc.robot.subsystems.DriveTrain;
 public class FindBall extends CommandBase {
     //Drive and PID VARIABLES
     private DriveTrain drive;
+    /*
+    * @param kP - Proportional, Controls how much the robot can move
+    * @param kI - Integral, to remove steady-state error, limits over/undershooting may increase settling time
+    * @param kD - Derivative, Can predict future system behavior and reduce settling time.
+    * @param kF - FeedForward, Accounts for the known dynamics of the system, whereas it accounts for deviations from friction and added weight.
+    *
+    * With just P the mechanism is more likely to over/undershoot the setpoint
+    * PI would remove the over/undershoot but has a settling time
+    * PID is needed when even with PI is still oscillating a little bit before settling 
+    * Motor Output = kP x error + kI x errorSum + kD x errorRate
+    */
     private PIDController pid = new PIDController(-0.036,0,-0.005);
     private double turnValue = 0;
     private double driveValue = 0;
