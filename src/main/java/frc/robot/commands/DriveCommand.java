@@ -14,14 +14,10 @@ public class DriveCommand extends CommandBase {
         addRequirements(drivetrain);
     }
     
-
-    //Hello World
-    public void initialize() {
-
-    }
+    public void initialize() {}
 
     public void execute() {
-        driveTrain.manualDrive(control, 1, 1, false);
+        driveTrain.manualDrive(control, 0.8, 0.8, true);
     }
     public void end(boolean interrupted) {
 
