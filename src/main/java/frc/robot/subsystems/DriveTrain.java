@@ -23,12 +23,32 @@ public class DriveTrain extends SubsystemBase {
     drive = new DifferentialDrive(m_left,m_right);
   }
 
+  /**
+   * arcadeDrive based teleoperated control. Left stick throttle, right stick turn.
+   * @param controller XboxController for teleop.
+   * @param maxSpeed Max speed [0.0..1.0].
+   * @param maxTurnSpeed Max turn speed [0.0..1.0].
+   * @param squareInputs If set, squares inputs for low speed precision.
+   */
   public void manualDrive(XboxController controller, double maxSpeed, double maxTurnSpeed, boolean squareInputs) {
     drive.arcadeDrive(-maxSpeed*controller.getLeftY(), maxTurnSpeed*controller.getRightX(), squareInputs);
   }
-  public void GTADrive(XboxController controller, double maxSpeed, double maxTurnSpeed, boolean squareInputs) {
+
+  /**
+   * curvatureDrive based teleoperated control. Triggers throttle, left stick to turn.
+   * @param controller XboxController for teleop.
+   * @param maxSpeed Max speed [0.0..1.0].
+   * @param maxTurnSpeed Max turn speed [0.0..1.0].
+   */
+  public void GTADrive(XboxController controller, double maxSpeed, double maxTurnSpeed) {
     drive.curvatureDrive(maxSpeed*(controller.getRightTriggerAxis()-controller.getLeftTriggerAxis()), controller.getLeftX(), false);
   }
+
+  /**
+   * Drives and turns at a set speed.
+   * @param speed [-1.0..1.0].
+   * @param turnSpeed [-1.0..1.0].
+   */
   public void autonomousDrive(double speed, double turnSpeed) {
     drive.arcadeDrive(speed,turnSpeed);
   }

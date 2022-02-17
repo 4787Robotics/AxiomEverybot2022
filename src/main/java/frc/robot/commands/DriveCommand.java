@@ -17,7 +17,7 @@ public class DriveCommand extends CommandBase {
     public void initialize() {}
 
     public void execute() {
-        driveTrain.manualDrive(control, 0.8, 0.8, true);
+        driveTrain.manualDrive(control, 0.5, 0.5, true);
     }
     public void end(boolean interrupted) {
 

@@ -32,36 +32,34 @@ public class FindBall extends CommandBase {
     NetworkTableEntry ty = table.getEntry("ty"); // vertical degrees
     NetworkTableEntry tv = table.getEntry("tv"); // 0 if no target, 1 if target
     NetworkTableEntry ta = table.getEntry("ta"); // area of target (in % of screen)
-    private boolean pipeType = true; // variable to test whether we want to have Pipeline 0 (True which is red) 
-                                     // or 1 (False which is blue)
+    private boolean pipeType; // variable to test whether we want to have Pipeline 0 (True which is red) 
+                              // or 1 (False which is blue)
 
 
-    public FindBall(DriveTrain driveTrain) {
+    public FindBall(DriveTrain driveTrain, boolean redBall) {
         drive = driveTrain;
+        pipeType = redBall;
         addRequirements(driveTrain);
     }
 
 
-    public void intialize() {
-        super.initialize();
-    }
+    public void intialize() {}
 
 
     public void execute() {
         //cool Pipeline Code
-        if (pipeType == true) {
-            NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
-
+        if (pipeType == false) {
+            table.getEntry("pipeline").setNumber(0);
         }
         else {
-            NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(1);
+            table.getEntry("pipeline").setNumber(1);
         }
 
         //cool PID code
         if(tv.getDouble(0.0) == 1) { // if see ball
             turnValue = pid.calculate(tx.getDouble(0.0),0);
             if(ta.getDouble(0.0) < 15) { // if ball far away
-                driveValue = 0.6-(ta.getDouble(0.0)/167);
+                //driveValue = 0.6-(ta.getDouble(0.0)/167);
             } else { // reached ball
                 driveValue = 0;
             }

@@ -10,6 +10,7 @@ import frc.robot.commands.DriveCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveTrain;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.robot.commands.FindBall;
 
 /**
@@ -21,14 +22,14 @@ import frc.robot.commands.FindBall;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
-  WPI_VictorSPX m_left1 = new WPI_VictorSPX(Constants.motor_left1);
-  WPI_VictorSPX m_left2 = new WPI_VictorSPX(Constants.motor_left2);
-  WPI_VictorSPX m_right1 = new WPI_VictorSPX(Constants.motor_right1);
-  WPI_VictorSPX m_right2 = new WPI_VictorSPX(Constants.motor_right2);
-  private final DriveTrain driveTrain = new DriveTrain(new WPI_VictorSPX[]{m_left1,m_left2},new WPI_VictorSPX[]{m_right1,m_right2},true);
+  WPI_TalonFX m_left1 = new WPI_TalonFX(Constants.motor_left1);
+  WPI_TalonFX m_left2 = new WPI_TalonFX(Constants.motor_left2);
+  WPI_TalonFX m_right1 = new WPI_TalonFX(Constants.motor_right1);
+  WPI_TalonFX m_right2 = new WPI_TalonFX(Constants.motor_right2);
+  private final DriveTrain driveTrain = new DriveTrain(new WPI_TalonFX[]{m_left1,m_left2},new WPI_TalonFX[]{m_right1,m_right2},true);
   private final XboxController controller = new XboxController(0);
   
-  FindBall findBall = new FindBall(driveTrain);
+  FindBall findBall = new FindBall(driveTrain,true);
   DriveCommand drive = new DriveCommand(driveTrain, controller);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
