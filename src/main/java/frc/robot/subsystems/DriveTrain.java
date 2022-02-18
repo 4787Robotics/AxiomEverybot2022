@@ -16,10 +16,10 @@ public class DriveTrain extends SubsystemBase {
   private DifferentialDrive drive;
   
   /** Creates a new DriveTrain. */
-  public DriveTrain(MotorController[] motorsLeft, MotorController[] motorsRight, boolean invertRightSide) {
+  public DriveTrain(MotorController[] motorsLeft, MotorController[] motorsRight, boolean invertLeftSide) {
     m_left = new MotorControllerGroup(motorsLeft);
     m_right = new MotorControllerGroup(motorsRight);
-    m_right.setInverted(invertRightSide);
+    m_left.setInverted(invertLeftSide);
     drive = new DifferentialDrive(m_left,m_right);
   }
 
