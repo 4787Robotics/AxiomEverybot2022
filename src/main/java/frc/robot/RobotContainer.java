@@ -32,7 +32,8 @@ public class RobotContainer {
   private final PS4Controller pController = new PS4Controller(0);
   
   FindBall findBall = new FindBall(driveTrain,true);
-  DriveCommand drive = new DriveCommand(driveTrain, pController);
+  DriveCommand drivePS4 = new DriveCommand(driveTrain, pController); //FOR THE PS4 CONTROLLER
+  DriveCommand drive = new DriveCommand(driveTrain, controller);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
