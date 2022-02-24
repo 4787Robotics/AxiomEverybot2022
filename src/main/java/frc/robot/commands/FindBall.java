@@ -48,7 +48,7 @@ public class FindBall extends CommandBase {
 
     public void execute() {
         //cool Pipeline Code
-        if (pipeType == false) {
+        if (pipeType) {
             table.getEntry("pipeline").setNumber(0);
         }
         else {

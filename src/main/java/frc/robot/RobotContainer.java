@@ -12,6 +12,7 @@ import frc.robot.subsystems.DriveTrain;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.robot.commands.FindBall;
+import edu.wpi.first.wpilibj.PS4Controller;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -28,9 +29,10 @@ public class RobotContainer {
   WPI_TalonFX m_right2 = new WPI_TalonFX(Constants.motor_right2);
   private final DriveTrain driveTrain = new DriveTrain(new WPI_TalonFX[]{m_left1,m_left2},new WPI_TalonFX[]{m_right1,m_right2},true);
   private final XboxController controller = new XboxController(0);
+  private final PS4Controller pController = new PS4Controller(0);
   
   FindBall findBall = new FindBall(driveTrain,true);
-  DriveCommand drive = new DriveCommand(driveTrain, controller);
+  DriveCommand drive = new DriveCommand(driveTrain, pController);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
