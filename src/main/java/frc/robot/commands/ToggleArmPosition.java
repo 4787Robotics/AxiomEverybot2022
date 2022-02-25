@@ -6,9 +6,11 @@ package frc.robot.commands;
 import frc.robot.subsystems.IntakeArm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.XboxController;
 
 public class ToggleArmPosition extends CommandBase {
   private IntakeArm intakeArm;
+  private XboxController xboxController;
 
   /** Creates a new ToggleArmPosition. */
   public ToggleArmPosition(IntakeArm arm) {
@@ -23,9 +25,10 @@ public class ToggleArmPosition extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    if() {
+      
+    }
   }
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}

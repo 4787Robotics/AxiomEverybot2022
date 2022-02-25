@@ -11,16 +11,13 @@ import edu.wpi.first.math.controller.PIDController;
 
 public class IntakeArm extends SubsystemBase {
   private MotorController armMotor;
-  private Encoder armEncoder;
   private MotorController intakeMotor;
   private PIDController armPID;
 
   /** Creates a new IntakeArm. */
-  public IntakeArm(MotorController arm, MotorController intake, Encoder encoder) {
+  public IntakeArm(MotorController arm, MotorController intake) {
     armMotor = arm;
     intakeMotor = intake;
-    armEncoder = encoder;
-    armEncoder.reset();
   }
 
   public void setArmSpeed(double speed) {
@@ -32,7 +29,7 @@ public class IntakeArm extends SubsystemBase {
   }
 
   public double getPosition() {
-    return armEncoder.getDistance();
+    return 0;
   }
 
 
