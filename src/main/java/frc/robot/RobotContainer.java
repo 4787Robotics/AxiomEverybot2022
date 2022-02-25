@@ -6,13 +6,15 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.DriveCommand;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.DriveTrain;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import frc.robot.commands.DriveCommand;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.IntakeArm;
 import frc.robot.commands.FindBall;
-import edu.wpi.first.wpilibj.PS4Controller;
+import frc.robot.commands.ToggleArmPosition;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -29,10 +31,12 @@ public class RobotContainer {
   WPI_TalonFX m_right2 = new WPI_TalonFX(Constants.motor_right2);
   private final DriveTrain driveTrain = new DriveTrain(new WPI_TalonFX[]{m_left1,m_left2},new WPI_TalonFX[]{m_right1,m_right2},true);
   private final XboxController controller = new XboxController(0);
-  private final PS4Controller pController = new PS4Controller(0);
-  
-  FindBall findBall = new FindBall(driveTrain,true);
-  DriveCommand drivePS4 = new DriveCommand(driveTrain, pController); //FOR THE PS4 CONTROLLER
+
+  IntakeArm intake = new IntakeArm(m_left1, m_left2);
+
+  JoystickButton armPositionButton = new JoystickButton(controller, Constants.armButton);
+
+  FindBall findBall = new FindBall(driveTrain);
   DriveCommand drive = new DriveCommand(driveTrain, controller);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -50,6 +54,7 @@ public class RobotContainer {
 
   
   private void configureButtonBindings() {
+    armPositionButton.whileActiveContinuous(new ToggleArmPosition(intake));
   }
   
   /**
@@ -69,6 +74,4 @@ public class RobotContainer {
   public Command getTeleopCommand() {
     return drive;
   }
-
-
 }
