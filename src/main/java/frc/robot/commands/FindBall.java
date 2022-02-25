@@ -22,12 +22,13 @@ public class FindBall extends CommandBase {
     NetworkTableEntry ty = table.getEntry("ty"); // vertical degrees
     NetworkTableEntry tv = table.getEntry("tv"); // 0 if no target, 1 if target
     NetworkTableEntry ta = table.getEntry("ta"); // area of target (in % of screen)
-    private boolean pipeType = true; // variable to test whether we want to have Pipeline 0 (True which is red) 
+    private boolean pipeType; // variable to test whether we want to have Pipeline 0 (True which is red) 
                                      // or 1 (False which is blue)
 
 
-    public FindBall(DriveTrain driveTrain) {
+    public FindBall(DriveTrain driveTrain, boolean redBall) {
         drive = driveTrain;
+        pipeType = redBall;
         addRequirements(driveTrain);
     }
 
@@ -39,7 +40,7 @@ public class FindBall extends CommandBase {
 
     public void execute() {
         //cool Pipeline Code
-        if (pipeType == true) {
+        if (pipeType) {
             NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
 
         }
