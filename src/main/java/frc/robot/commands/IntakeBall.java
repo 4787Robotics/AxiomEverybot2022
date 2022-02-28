@@ -11,9 +11,9 @@ public class IntakeBall extends CommandBase {
   private IntakeArm intakeArm;
 
   /** Creates a new IntakeBall. */
-  public IntakeBall(IntakeArm arm) {
-    intakeArm = arm;
-    addRequirements(arm);
+  public IntakeBall(IntakeArm intakeArm) {
+    this.intakeArm = intakeArm;
+    addRequirements(intakeArm);
   }
 
   // Called when the command is initially scheduled.

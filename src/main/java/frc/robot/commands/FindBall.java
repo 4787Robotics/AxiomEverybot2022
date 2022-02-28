@@ -9,7 +9,7 @@ import frc.robot.subsystems.DriveTrain;
 
 public class FindBall extends CommandBase {
     // Drive and PID variables
-    private DriveTrain drive;
+    private DriveTrain driveTrain;
     private PIDController drivePID = new PIDController(-0.036,0,-0.005); // OUTDATED CONSTANTS
     private double turnValue = 0;
     private double driveValue = 0;
@@ -22,9 +22,14 @@ public class FindBall extends CommandBase {
     NetworkTableEntry ta = table.getEntry("ta"); // area of target (in % of screen)
     private boolean pipeType; // toggle to red ball pipeline (true) or blue (false)
 
-    public FindBall(DriveTrain driveTrain, boolean redBall) {
-        drive = driveTrain;
-        pipeType = redBall;
+    /**
+     * Creates a new FindBall command.
+     * @param driveTrain The DriveTrain subsystem to be used.
+     * @param pipeType Toggles Limelight pipeline for ball detection. true = red, false = blue
+     */
+    public FindBall(DriveTrain driveTrain, boolean pipeType) {
+        this.driveTrain = driveTrain;
+        this.pipeType = pipeType;
         addRequirements(driveTrain);
     }
 
@@ -50,9 +55,9 @@ public class FindBall extends CommandBase {
                 driveValue = 0;
             }
             // simulataneous turn + drive toward target
-            drive.autonomousDrive(driveValue,turnValue);
+            driveTrain.autonomousDrive(driveValue,turnValue);
         } else {
-            drive.autonomousDrive(0, 0.4);
+            driveTrain.autonomousDrive(0, 0.4);
         }
 
         //old dumb non-PID code
