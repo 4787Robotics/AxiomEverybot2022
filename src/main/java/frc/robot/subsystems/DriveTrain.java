@@ -4,24 +4,33 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.PS4Controller;
-import edu.wpi.first.wpilibj.XboxController;
+import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class DriveTrain extends SubsystemBase {
-  private MotorControllerGroup m_left;
-  private MotorControllerGroup m_right;
+  private WPI_TalonFX m_left1;
+  private WPI_TalonFX m_right1;
+  private WPI_TalonFX m_left2;
+  private WPI_TalonFX m_right2;
+  
   private DifferentialDrive drive;
   
   /** Creates a new DriveTrain. */
-  public DriveTrain(MotorController[] motorsLeft, MotorController[] motorsRight, boolean invertLeftSide) {
-    m_left = new MotorControllerGroup(motorsLeft);
-    m_right = new MotorControllerGroup(motorsRight);
-    m_left.setInverted(invertLeftSide);
-    drive = new DifferentialDrive(m_left,m_right);
+  public DriveTrain() {
+    m_left1 = new WPI_TalonFX(Constants.motor_left1);
+    m_left2 = new WPI_TalonFX(Constants.motor_left2);
+    m_right1 = new WPI_TalonFX(Constants.motor_right1);
+    m_right2 = new WPI_TalonFX(Constants.motor_right2);
+
+    m_left1.setInverted(TalonFXInvertType.Clockwise);
+    m_left2.setInverted(TalonFXInvertType.Clockwise);
+    m_left2.follow(m_left1);
+    m_right2.follow(m_right1);
+
+    drive = new DifferentialDrive(m_left1,m_right1);
   }
 
   /**
@@ -31,22 +40,8 @@ public class DriveTrain extends SubsystemBase {
    * @param maxTurnSpeed Max turn speed [0.0..1.0].
    * @param squareInputs If set, squares inputs for low speed precision.
    */
-  public void manualDrive(XboxController controller, double maxSpeed, double maxTurnSpeed, boolean squareInputs) {
-    drive.arcadeDrive(-maxSpeed*controller.getLeftY(), maxTurnSpeed*controller.getRightX(), squareInputs);
-  }
-
-  public void manualDrive(PS4Controller controller, double maxSpeed, double maxTurnSpeed, boolean squareInputs) {
-    drive.arcadeDrive(-maxSpeed*controller.getLeftY(), maxTurnSpeed*controller.getRightX(), squareInputs);
-  }
-
-  /**
-   * curvatureDrive based teleoperated control. Triggers throttle, left stick to turn.
-   * @param controller XboxController for teleop.
-   * @param maxSpeed Max speed [0.0..1.0].
-   * @param maxTurnSpeed Max turn speed [0.0..1.0].
-   */
-  public void GTADrive(XboxController controller, double maxSpeed, double maxTurnSpeed) {
-    drive.curvatureDrive(maxSpeed*(controller.getRightTriggerAxis()-controller.getLeftTriggerAxis()), controller.getLeftX(), false);
+  public void manualDrive(double throttle, double steer, double maxSpeed, double maxTurnSpeed, boolean squareInputs) {
+    drive.arcadeDrive(Math.sqrt(maxSpeed)*throttle, Math.sqrt(maxTurnSpeed)*steer, squareInputs);
   }
 
   /**

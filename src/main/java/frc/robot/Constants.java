@@ -17,6 +17,8 @@ public final class Constants {
     public static int motor_right2 = 1;
     public static int motor_left1 = 3;
     public static int motor_left2 = 2;
+    public static int motor_arm = 4;
+    public static int motor_intake = 5;
 
     public static int armButton = 3;
 }

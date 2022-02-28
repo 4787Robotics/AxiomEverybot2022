@@ -8,8 +8,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.robot.commands.DriveCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeArm;
@@ -24,20 +22,15 @@ import frc.robot.commands.ToggleArmPosition;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
-  WPI_TalonFX m_left1 = new WPI_TalonFX(Constants.motor_left1);
-  WPI_TalonFX m_left2 = new WPI_TalonFX(Constants.motor_left2);
-  WPI_TalonFX m_right1 = new WPI_TalonFX(Constants.motor_right1);
-  WPI_TalonFX m_right2 = new WPI_TalonFX(Constants.motor_right2);
-  private final DriveTrain driveTrain = new DriveTrain(new WPI_TalonFX[]{m_left1,m_left2},new WPI_TalonFX[]{m_right1,m_right2},true);
+  private final DriveTrain driveTrain = new DriveTrain();
   private final XboxController controller = new XboxController(0);
 
-  IntakeArm intake = new IntakeArm(m_left1, m_left2);
+  IntakeArm intake = new IntakeArm();
 
   JoystickButton armPositionButton = new JoystickButton(controller, Constants.armButton);
 
-  FindBall findBall = new FindBall(driveTrain);
-  DriveCommand drive = new DriveCommand(driveTrain, controller);
+  FindBall findBall = new FindBall(driveTrain, true);
+  DriveCommand drive = new DriveCommand(driveTrain, ()-> -controller.getLeftY(), ()-> controller.getRightX());
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

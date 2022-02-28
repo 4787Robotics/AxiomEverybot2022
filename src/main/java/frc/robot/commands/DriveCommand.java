@@ -1,31 +1,25 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj.PS4Controller;
-import edu.wpi.first.wpilibj.XboxController;
+import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveCommand extends CommandBase {
     private DriveTrain driveTrain;
-    private XboxController control;
-    private PS4Controller pControl;
+    private DoubleSupplier throttle;
+    private DoubleSupplier steer;
 
-    public DriveCommand(DriveTrain drivetrain, XboxController controller) {
-        driveTrain = drivetrain;
-        control = controller;
-        addRequirements(drivetrain);
-    }
-
-    public DriveCommand(DriveTrain drivetrain, PS4Controller pController) {
-        driveTrain = drivetrain;
-        pControl = pController;
-        addRequirements(drivetrain);
+    public DriveCommand(DriveTrain driveTrain, DoubleSupplier throttle, DoubleSupplier steer) {
+        this.driveTrain = driveTrain;
+        this.throttle = throttle;
+        this.steer = steer;
+        addRequirements(driveTrain);
     }
     
     public void initialize() {}
 
     public void execute() {
-        driveTrain.manualDrive(pControl, 0.5, 0.5, true);
+        driveTrain.manualDrive(throttle.getAsDouble(), steer.getAsDouble(), 0.7, 0.7, true);
     }
     public void end(boolean interrupted) {
 
