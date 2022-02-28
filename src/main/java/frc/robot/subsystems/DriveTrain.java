@@ -18,7 +18,7 @@ public class DriveTrain extends SubsystemBase {
   
   private DifferentialDrive drive;
   
-  /** Creates a new DriveTrain. */
+  /** Creates a new DriveTrain and initializes motor controllers. */
   public DriveTrain() {
     m_left1 = new WPI_TalonFX(Constants.motor_left1);
     m_left2 = new WPI_TalonFX(Constants.motor_left2);
@@ -41,7 +41,11 @@ public class DriveTrain extends SubsystemBase {
    * @param squareInputs If set, squares inputs for low speed precision.
    */
   public void manualDrive(double throttle, double steer, double maxSpeed, double maxTurnSpeed, boolean squareInputs) {
-    drive.arcadeDrive(Math.sqrt(maxSpeed)*throttle, Math.sqrt(maxTurnSpeed)*steer, squareInputs);
+    if(squareInputs) {
+      throttle = Math.copySign(throttle*throttle, throttle);
+      steer = Math.copySign(steer*steer, steer);
+    } // does not use arcadeDrive's squareInputs parameter to preserve max speeds
+    drive.arcadeDrive(maxSpeed*throttle, maxTurnSpeed*steer, false);
   }
 
   /**
@@ -50,12 +54,13 @@ public class DriveTrain extends SubsystemBase {
    * @param turnSpeed [-1.0..1.0].
    */
   public void autonomousDrive(double speed, double turnSpeed) {
-    drive.arcadeDrive(speed,turnSpeed);
+    drive.arcadeDrive(speed,turnSpeed,false);
   }
   
   public void stop() {
     drive.stopMotor();
   }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

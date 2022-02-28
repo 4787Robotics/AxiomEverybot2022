@@ -3,32 +3,31 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
-import frc.robot.subsystems.IntakeArm;
 
+import frc.robot.subsystems.IntakeArm;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.XboxController; 
+import edu.wpi.first.math.controller.PIDController;
 
 public class ToggleArmPosition extends CommandBase {
-  private IntakeArm intakeArm;
-  private XboxController xboxController;
+  private IntakeArm intake;
+  private PIDController armPID;
 
   /** Creates a new ToggleArmPosition. */
-  public ToggleArmPosition(IntakeArm arm) {
-    intakeArm = arm;
-    addRequirements(arm);
+  public ToggleArmPosition(IntakeArm intake) {
+    this.intake = intake;
+    addRequirements(intake);
+    armPID = new PIDController(0, 0, 0);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(true) {
-      //shhhh
-    }
+    intake.setArmSpeed(armPID.calculate(intake.getPosition(), 50));
   }
+  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}

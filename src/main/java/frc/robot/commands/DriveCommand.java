@@ -16,15 +16,18 @@ public class DriveCommand extends CommandBase {
         addRequirements(driveTrain);
     }
     
+    @Override
     public void initialize() {}
 
+    @Override
     public void execute() {
         driveTrain.manualDrive(throttle.getAsDouble(), steer.getAsDouble(), 0.7, 0.7, true);
     }
-    public void end(boolean interrupted) {
 
-    }
+    @Override
+    public void end(boolean interrupted) {}
 
+    @Override
     public boolean isFinished() {
     return false;
     }

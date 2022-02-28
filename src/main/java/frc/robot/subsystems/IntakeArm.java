@@ -7,18 +7,22 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import edu.wpi.first.math.controller.PIDController;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class IntakeArm extends SubsystemBase {
   private CANSparkMax armMotor;
+  private RelativeEncoder armEncoder;
   private MotorController intakeMotor;
-  private PIDController armPID;
 
   /** Creates a new IntakeArm. */
   public IntakeArm() {
     armMotor = new CANSparkMax(Constants.motor_arm, MotorType.kBrushless);
+    armEncoder = armMotor.getEncoder();
+    armEncoder.setPosition(0);
+    armEncoder.setPositionConversionFactor(Constants.armGearing);
+    //intakeMotor = new ... ;
   }
 
   public void setArmSpeed(double speed) {
@@ -30,7 +34,7 @@ public class IntakeArm extends SubsystemBase {
   }
 
   public double getPosition() {
-    return 0;
+    return armEncoder.getPosition();
   }
 
 

@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.DriveCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeArm;
+import frc.robot.commands.DriveCommand;
 import frc.robot.commands.FindBall;
 import frc.robot.commands.ToggleArmPosition;
 
@@ -44,8 +44,6 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-
-  
   private void configureButtonBindings() {
     armPositionButton.whileActiveContinuous(new ToggleArmPosition(intake));
   }
