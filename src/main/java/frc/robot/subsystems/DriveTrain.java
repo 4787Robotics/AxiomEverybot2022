@@ -48,6 +48,16 @@ public class DriveTrain extends SubsystemBase {
     drive.arcadeDrive(maxSpeed*throttle, maxTurnSpeed*steer, false);
   }
 
+  public void chooseName() {
+    String[] names = {"Dylan", "Hahn-Saem", "Yahir", "Leyna", "Andrew", "Kayla", "Jonah"};
+    int x = 0;
+    if (x == 0) {
+    System.out.println(names[(int) (Math.random() * names.length)]);
+    x++;
+    }
+  
+  }
+
   /**
    * Drives and turns at a set speed.
    * @param speed [-1.0..1.0].

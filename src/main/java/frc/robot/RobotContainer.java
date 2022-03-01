@@ -46,6 +46,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     armPositionButton.whileActiveContinuous(new ToggleArmPosition(intake));
+
+    //QUICK NOTE: WE WANT TO CONFIGURE THE TYPE OF BUTTON FUNCTION THAT WE WANT TO USE
+    // armPositionButton.whenPressed(command)
   }
   
   /**
