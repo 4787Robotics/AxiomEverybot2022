@@ -12,6 +12,8 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeArm;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.FindBall;
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.TeleopGroup;
 import frc.robot.commands.ToggleArmPosition;
 
 /**
@@ -30,7 +32,10 @@ public class RobotContainer {
   JoystickButton armPositionButton = new JoystickButton(controller, Constants.armButton);
 
   FindBall findBall = new FindBall(driveTrain, true);
-  DriveCommand drive = new DriveCommand(driveTrain, ()-> -controller.getLeftY(), ()-> controller.getRightX());
+  
+  //Combination of the teleop commands together
+  TeleopGroup teleopGroup = new TeleopGroup(driveTrain, intake, controller);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -66,6 +71,6 @@ public class RobotContainer {
    * @return the command to run in teleoperated mode
    */
   public Command getTeleopCommand() {
-    return drive;
+    return teleopGroup;
   }
 }
