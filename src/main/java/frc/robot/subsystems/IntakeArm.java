@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -24,7 +24,7 @@ public class IntakeArm extends SubsystemBase {
     armEncoder = armMotor.getEncoder();
     armEncoder.setPosition(0);
     armEncoder.setPositionConversionFactor(Constants.armGearing * 360);
-    intakeMotor = new WPI_TalonFX(Constants.motor_intake);
+    intakeMotor = new WPI_TalonSRX(Constants.motor_intake);
   }
 
   public void setArmSpeed(double speed) {

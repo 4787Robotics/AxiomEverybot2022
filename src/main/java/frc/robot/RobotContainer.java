@@ -7,12 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.IntakeArm;
-import frc.robot.commands.FindBall;
-import frc.robot.commands.TeleopGroup;
-import frc.robot.commands.ToggleArmPosition;
+import frc.robot.subsystems.*;
+import frc.robot.commands.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -22,18 +20,14 @@ import frc.robot.commands.ToggleArmPosition;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveTrain driveTrain = new DriveTrain();
-  private final XboxController controller = new XboxController(0);
+  DriveTrain driveTrain = new DriveTrain();
+  XboxController controller = new XboxController(0);
 
   IntakeArm intake = new IntakeArm();
 
   JoystickButton armPositionButton = new JoystickButton(controller, Constants.armButton);
 
   FindBall findBall = new FindBall(driveTrain, true);
-  
-  //Combination of the teleop commands together
-  TeleopGroup teleopGroup = new TeleopGroup(driveTrain, intake, controller);
-
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -69,6 +63,8 @@ public class RobotContainer {
    * @return the command to run in teleoperated mode
    */
   public Command getTeleopCommand() {
-    return teleopGroup;
+    return new ParallelCommandGroup(
+      new DriveCommand(driveTrain, ()-> -controller.getLeftY(), ()-> controller.getRightX()), 
+      new IntakeCommand(intake, () -> controller.getLeftTriggerAxis(), () -> controller.getRightTriggerAxis()));
   }
 }
