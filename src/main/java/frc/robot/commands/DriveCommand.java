@@ -22,7 +22,6 @@ public class DriveCommand extends CommandBase {
     @Override
     public void execute() {
         driveTrain.manualDrive(throttle.getAsDouble(), steer.getAsDouble(), 0.7, 0.7, true);
-        driveTrain.chooseName();
     }
 
     @Override
