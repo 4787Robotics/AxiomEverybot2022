@@ -17,6 +17,20 @@ public class ToggleArmPosition extends CommandBase {
     this.intake = intake;
     addRequirements(intake);
     armPID = new PIDController(0, 0, 0);
+    
+    /**
+     * @param mV max Velocity
+     * @param mA max Accelration
+     * @param kDt Time in Motion? idk man
+     * PID = new ProfiledPIDController(kP, kV, kD, new TrapezoidProfile.constraints(mV, mA), kDt);
+     * 
+     * if(!intakeUp)
+     *    PID.setGoal(position value OR TrapezoidProfile.State, if nonzero velocity is desired);
+     * else 
+     *    PID.setGoal(0);
+     * 
+     * intake.setArmSpeed(PID.calculate(intake.getPosition()))
+     */
   }
 
   @Override
