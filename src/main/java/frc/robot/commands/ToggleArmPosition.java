@@ -13,8 +13,6 @@ public class ToggleArmPosition extends CommandBase {
   private PIDController armPID;
   private Boolean intakeUp = true; 
 
-
-  /** Creates a new ToggleArmPosition. */
   public ToggleArmPosition(IntakeArm intake) {
     this.intake = intake;
     addRequirements(intake);
@@ -28,7 +26,7 @@ public class ToggleArmPosition extends CommandBase {
   @Override
   public void execute() {
     //measured in degrees
-    if(intake.getPosition() != 60 && !(intakeUp)) {
+    if(intake.getPosition() != 60 && !intakeUp) {
       intake.setArmSpeed(armPID.calculate(intake.getPosition(), 60));
       intakeUp = true;
     } else if (intake.getPosition() != 0 && intakeUp) {

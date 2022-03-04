@@ -38,7 +38,6 @@ public class FindBall extends CommandBase {
 
     @Override
     public void execute() {
-        //cool Pipeline Code
         if (pipeType) {
             NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
         }
@@ -46,7 +45,6 @@ public class FindBall extends CommandBase {
             NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(1);
         }
 
-        //cool PID code
         if(tv.getDouble(0.0) == 1) { // if see ball
             turnValue = drivePID.calculate(tx.getDouble(0.0),0);
             if(ta.getDouble(0.0) < 15) { // if ball far away
@@ -59,30 +57,8 @@ public class FindBall extends CommandBase {
         } else {
             driveTrain.autonomousDrive(0, 0.4);
         }
-
-        //old dumb non-PID code
-        /*if(tv.getDouble(0.0) == 0) {
-            drive.autonomousDrive(0,0.4);
-        } else if(tx.getDouble(0.0) < -5) {
-            drive.autonomousDrive(0,-0.5);
-        } else if(tx.getDouble(0.0) > 5) {
-            drive.autonomousDrive(0,0.5);
-        } else if(ta.getDouble(0.0) < 25) {
-            drive.autonomousDrive(0.7,0);
-        }*/
     }
 
-    /**
-    * Example of FeedForward and PID Controller
-    * 
-    * public void driveWithFeedforwardPID(double leftVelocitySetpoint, double rightVelocitySetpoint) {
-        m_left.setVoltage(feedForward.calculate(leftVelocitySetpoint)
-            + leftPID.calculate(leftEncoder.getRate(), leftVelocitySetpoint));
-        m_right.setVoltage(feedForward.calculate(rightVelocitySetpoint)
-            + rightPID.calculate(rightEncoder.getRate(), rightVelocitySetpoint));
-        PID.calculate(tx.getDouble(0.0),0) = encoder.getRate()
-    * }
-    */
     @Override
     public void end(boolean interrupted) {
     }

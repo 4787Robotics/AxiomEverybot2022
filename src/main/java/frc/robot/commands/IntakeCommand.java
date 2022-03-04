@@ -18,13 +18,12 @@ public class IntakeCommand extends CommandBase {
   
   /** Creates a new Intake. */
   public IntakeCommand(IntakeArm intake, DoubleSupplier forwardSpeed, DoubleSupplier forwardSpeedButBackwards) {
-    //"this" function calls global variables
     this.intake = intake;
     this.forwardSpeed = forwardSpeed;
     this.forwardSpeedButBackwards = forwardSpeedButBackwards;
     addRequirements(intake);
   }
-
+  
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
