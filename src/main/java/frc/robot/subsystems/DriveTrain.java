@@ -7,8 +7,9 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class DriveTrain extends SubsystemBase {
   private WPI_TalonFX m_left1;
@@ -27,6 +28,10 @@ public class DriveTrain extends SubsystemBase {
 
     m_left1.setInverted(TalonFXInvertType.Clockwise);
     m_left2.setInverted(TalonFXInvertType.Clockwise);
+    m_left1.setNeutralMode(NeutralMode.Coast);
+    m_left2.setNeutralMode(NeutralMode.Coast);
+    m_right1.setNeutralMode(NeutralMode.Coast);
+    m_right2.setNeutralMode(NeutralMode.Coast);
     m_left2.follow(m_left1);
     m_right2.follow(m_right1);
 

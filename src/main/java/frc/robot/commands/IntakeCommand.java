@@ -4,14 +4,11 @@
 
 package frc.robot.commands;
 
+import frc.robot.subsystems.IntakeArm;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IntakeArm;
-
 public class IntakeCommand extends CommandBase {
-
-  //global variable (global scope)
   private IntakeArm intake;
   private DoubleSupplier forwardSpeed;
   private DoubleSupplier forwardSpeedButBackwards;
