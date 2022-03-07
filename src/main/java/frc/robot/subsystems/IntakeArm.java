@@ -37,6 +37,10 @@ public class IntakeArm extends SubsystemBase {
   public double getPosition() {
     return armEncoder.getPosition(); //0-60 degrees range
   }
+  
+  public double getVelocity() {
+    return armEncoder.getVelocity();
+  }
 
 
   @Override

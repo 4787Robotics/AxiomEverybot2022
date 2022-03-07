@@ -11,7 +11,7 @@ import edu.wpi.first.math.controller.PIDController;
 public class ToggleArmPosition extends CommandBase {
   private IntakeArm intake;
   private PIDController armPID;
-  private Boolean intakeUp = true; 
+  private boolean intakeUp = true; 
 
   public ToggleArmPosition(IntakeArm intake) {
     this.intake = intake;
@@ -34,18 +34,22 @@ public class ToggleArmPosition extends CommandBase {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    if(intake.getPosition() >= 30) {
+      intakeUp = true;
+    } else {
+      intakeUp = false;
+    }
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     //measured in degrees
-    if(intake.getPosition() != 60 && !intakeUp) {
-      intake.setArmSpeed(armPID.calculate(intake.getPosition(), 60));
-      intakeUp = true;
-    } else if (intake.getPosition() != 0 && intakeUp) {
+    if(intakeUp) {
       intake.setArmSpeed(armPID.calculate(intake.getPosition(), 0));
-      intakeUp = false;
+    } else {
+      intake.setArmSpeed(armPID.calculate(intake.getPosition(), 60));
     }
   }
   
@@ -56,6 +60,10 @@ public class ToggleArmPosition extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(intakeUp) { // check if arm has gone down
+      return (Math.abs(intake.getPosition()) <= 1) && (Math.abs(intake.getVelocity()) <= 1);
+    } else { // check if arm has been raised
+      return (Math.abs(intake.getPosition() - 60) <= 1) && (Math.abs(intake.getVelocity()) <= 1);
+    }
   }
 }
