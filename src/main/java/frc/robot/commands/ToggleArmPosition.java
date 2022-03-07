@@ -58,12 +58,15 @@ public class ToggleArmPosition extends CommandBase {
   public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
-  @Override
+
   public boolean isFinished() {
     if(intakeUp) { // check if arm has gone down
-      return (Math.abs(intake.getPosition()) <= 1) && (Math.abs(intake.getVelocity()) <= 1);
+      return (Math.abs(intake.getPosition()) <= 1);
     } else { // check if arm has been raised
       return (Math.abs(intake.getPosition() - 60) <= 1) && (Math.abs(intake.getVelocity()) <= 1);
     }
   }
+  
+  
+
 }

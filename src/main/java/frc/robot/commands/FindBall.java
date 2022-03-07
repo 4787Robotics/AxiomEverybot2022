@@ -39,10 +39,10 @@ public class FindBall extends CommandBase {
     @Override
     public void execute() {
         if (pipeType) {
-            NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
+            table.getEntry("pipeline").setNumber(0);
         }
         else {
-            NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(1);
+            table.getEntry("pipeline").setNumber(1);
         }
 
         if(tv.getDouble(0.0) == 1) { // if see ball
