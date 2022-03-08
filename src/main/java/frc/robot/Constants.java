@@ -27,4 +27,5 @@ public final class Constants {
     // Joystick Bindings
     public static int armButton = 6; // Right Bumper
     public static int intakeButton = 5; // Left Bumper
+
 }
