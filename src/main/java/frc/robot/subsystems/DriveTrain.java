@@ -26,8 +26,8 @@ public class DriveTrain extends SubsystemBase {
     m_right1 = new WPI_TalonFX(Constants.motor_right1);
     m_right2 = new WPI_TalonFX(Constants.motor_right2);
 
-    m_left1.setInverted(TalonFXInvertType.Clockwise);
-    m_left2.setInverted(TalonFXInvertType.Clockwise);
+    m_right1.setInverted(TalonFXInvertType.Clockwise);
+    m_right2.setInverted(TalonFXInvertType.Clockwise);
     m_left1.setNeutralMode(NeutralMode.Coast);
     m_left2.setNeutralMode(NeutralMode.Coast);
     m_right1.setNeutralMode(NeutralMode.Coast);
