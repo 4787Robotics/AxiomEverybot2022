@@ -21,8 +21,6 @@ public class IntakeArm extends SubsystemBase {
   public IntakeArm() {
     armMotor = new CANSparkMax(Constants.motor_arm, MotorType.kBrushless);
     armEncoder = armMotor.getEncoder();
-    armEncoder.setPosition(0);
-    armEncoder.setPositionConversionFactor(Constants.armGearing * 360);
     intakeMotor = new WPI_TalonSRX(Constants.motor_intake);
   }
 
@@ -34,8 +32,12 @@ public class IntakeArm extends SubsystemBase {
     intakeMotor.set(speed);
   }
 
+  public void setZero() {
+    armEncoder.setPosition(0);
+  }
+
   public double getPosition() {
-    return armEncoder.getPosition(); //0-60 degrees range
+    return armEncoder.getPosition() * 360.0 * Constants.armGearing; //0-60 degrees range
   }
   
   public double getVelocity() {

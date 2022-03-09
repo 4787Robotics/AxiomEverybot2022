@@ -35,6 +35,7 @@ public class ToggleArmPosition extends CommandBase {
 
   @Override
   public void initialize() {
+    intake.setZero();
     if(intake.getPosition() >= 30) {
       intakeUp = true;
     } else {

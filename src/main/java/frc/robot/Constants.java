@@ -18,11 +18,11 @@ public final class Constants {
     public static int motor_right2 = 1;
     public static int motor_left1 = 3;
     public static int motor_left2 = 2;
-    public static int motor_arm = 4;
-    public static int motor_intake = 5;
+    public static int motor_arm = 5;
+    public static int motor_intake = 6;
 
     // Encoder ratios
-    public static double armGearing = 1 / 80;
+    public static double armGearing = 1.0/16.0;
 
     // Joystick Bindings
     public static int armButton = 6; // Right Bumper
