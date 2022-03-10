@@ -8,6 +8,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeArm;
 
@@ -24,8 +25,12 @@ public class ShootBall extends CommandBase {
 
   //Getting in Range
   private double kpDistance = -0.1; //placeholder number for now, will need tuning
-  private double distanceError = ty.getDouble(0.0); //Using LimeLight Crosshair distance calculation isn't needed
-  private double adjustment = kpDistance * distanceError;
+
+  //GetDistanceVariables
+  double offsetAngle;
+  double oppositeHeight;
+  double trigTanValue;
+  double distance;
 
   /** Creates a new ShootBall. */
   public ShootBall(IntakeArm intakeArm, DriveTrain driveTrain) {
@@ -39,9 +44,18 @@ public class ShootBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveTrain.autonomousDrive(adjustment, 0);
+    System.out.println(getDistance());
   }
+    
 
+  public double getDistance() {
+    offsetAngle = ty.getDouble(0.0);
+    oppositeHeight = Constants.hubHeight - Constants.limelightHeight;
+    trigTanValue = Math.tan((offsetAngle + Constants.limelightMountAngle) * (Math.PI/180));
+    distance = oppositeHeight / trigTanValue;
+
+    return distance;
+  }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}

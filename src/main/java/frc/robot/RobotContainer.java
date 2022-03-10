@@ -29,6 +29,7 @@ public class RobotContainer {
   JoystickButton shootBallButton = new JoystickButton(controller, Constants.shootButton);
 
   FindBall findBall = new FindBall(driveTrain, true);
+  ShootBall shootBall = new ShootBall(intake, driveTrain);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -43,7 +44,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     armPositionButton.whileActiveContinuous(new ToggleArmPosition(intake));
-    shootBallButton.whileActiveContinuous(new ShootBall(intake, driveTrain));
+    //shootBallButton.whileActiveContinuous(new ShootBall(intake, driveTrain));
 
     //QUICK NOTE: WE WANT TO CONFIGURE THE TYPE OF BUTTON FUNCTION THAT WE WANT TO USE
     // armPositionButton.whenPressed(command)
@@ -55,7 +56,7 @@ public class RobotContainer {
    * @return the command to run in autonomous mode
    */
   public Command getAutonomousCommand() {
-    return findBall;
+    return shootBall;
   }
   
   /**
