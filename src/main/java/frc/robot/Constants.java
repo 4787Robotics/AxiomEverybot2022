@@ -22,10 +22,16 @@ public final class Constants {
     public static int motor_intake = 6;
 
     // Encoder ratios
+    public static double driveGearing = 1.0/60.0;
     public static double armGearing = 1.0/16.0;
 
     // Joystick Bindings
     public static int armButton = 6; // Right Bumper
     public static int intakeButton = 5; // Left Bumper
     public static int shootButton = 4; // Y Button
+
+    //Physical Constants
+    public static double limelightHeight = 37.5; // 
+    public static double hubHeight = 71; // 8 feet 8 inches is 104 inches, 71 for now bc the pit
+    public static double limelightMountAngle = 0;
 }
