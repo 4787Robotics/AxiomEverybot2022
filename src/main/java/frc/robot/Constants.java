@@ -23,7 +23,7 @@ public final class Constants {
 
     // Encoder ratios
     public static double driveGearing = 1.0/60.0;
-    public static double armGearing = 1.0/16.0;
+    public static double armGearing = 1.0/80.0;
 
     // Joystick Bindings
     public static int armButton = 6; // Right Bumper
