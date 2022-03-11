@@ -33,7 +33,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    configureButtonBindings();
+    //configureButtonBindings();
   }
 
   /**
@@ -65,8 +65,11 @@ public class RobotContainer {
    * @return the command to run in teleoperated mode
    */
   public Command getTeleopCommand() {
-    return new ParallelCommandGroup(
+    /*return new ParallelCommandGroup(
       new DriveCommand(driveTrain, ()-> -controller.getLeftY(), ()-> controller.getRightX()), 
-      new IntakeCommand(intake, () -> controller.getLeftTriggerAxis(), () -> controller.getRightTriggerAxis()));
+      new IntakeCommand(intake, () -> controller.getLeftTriggerAxis(), () -> controller.getRightTriggerAxis()));*/
+      return new ParallelCommandGroup(
+        new DriveCommand(driveTrain, ()-> -controller.getLeftY(), ()-> controller.getRightX()),
+        new ArmTester(intake, controller));
   }
 }
