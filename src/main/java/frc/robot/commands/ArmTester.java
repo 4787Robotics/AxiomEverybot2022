@@ -5,22 +5,19 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.IntakeArm;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import java.util.function.DoubleSupplier;
 
-public class IntakeCommand extends CommandBase {
+public class ArmTester extends CommandBase {
   private IntakeArm intake;
-  private DoubleSupplier forwardSpeed;
-  private DoubleSupplier forwardSpeedButBackwards;
-  
-  /** Creates a new Intake. */
-  public IntakeCommand(IntakeArm intake, DoubleSupplier forwardSpeed, DoubleSupplier forwardSpeedButBackwards) {
+  private XboxController controller;
+  /** Creates a new ArmTester. */
+  public ArmTester(IntakeArm intake, XboxController controller) {
     this.intake = intake;
-    this.forwardSpeed = forwardSpeed;
-    this.forwardSpeedButBackwards = forwardSpeedButBackwards;
+    this.controller = controller;
     addRequirements(intake);
   }
-  
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -30,7 +27,15 @@ public class IntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setIntakeSpeed(forwardSpeed.getAsDouble() - forwardSpeedButBackwards.getAsDouble());
+    intake.setArmSpeed(controller.getLeftTriggerAxis());
+    if(controller.getRawButton(5)) {
+      intake.setIntakeSpeed(0.8);
+    } else if(controller.getRawButton(6)) {
+      intake.setIntakeSpeed(-0.8);
+    } else {
+      intake.setIntakeSpeed(0);
+    }
+    
   }
 
   // Called once the command ends or is interrupted.
