@@ -19,7 +19,7 @@ public final class Constants {
     public static int motor_left1 = 3;
     public static int motor_left2 = 2;
     public static int motor_arm = 5;
-    public static int motor_intake = 6;
+    public static int motor_intake = 4;
 
     // Encoder ratios
     public static double driveGearing = 1.0/60.0;

@@ -37,7 +37,6 @@ public class IntakeArm extends SubsystemBase {
   }
 
   public double getPosition() {
-    System.out.println(armEncoder.getPosition() * 360.0 * Constants.armGearing);
     return armEncoder.getPosition() * 360.0 * Constants.armGearing; //0-60 degrees range
   }
   

@@ -43,7 +43,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    armPositionButton.whileActiveContinuous(new ToggleArmPosition(intake));
+    //armPositionButton.whileActiveContinuous(new ToggleArmPosition(intake));
     //shootBallButton.whileActiveContinuous(new ShootBall(intake, driveTrain));
 
     //QUICK NOTE: WE WANT TO CONFIGURE THE TYPE OF BUTTON FUNCTION THAT WE WANT TO USE
