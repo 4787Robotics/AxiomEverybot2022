@@ -65,6 +65,9 @@ public class DriveTrain extends SubsystemBase {
   public void stop() {
     drive.stopMotor();
   }
+  public double getVelocity() {
+    return m_left1.getSelectedSensorVelocity() * Constants.driveGearing * (Math.PI/180.0) * 6.0 * 10.0;
+  }
 
   @Override
   public void periodic() {

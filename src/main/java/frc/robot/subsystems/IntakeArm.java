@@ -41,7 +41,7 @@ public class IntakeArm extends SubsystemBase {
   }
   
   public double getVelocity() {
-    return armEncoder.getVelocity();
+    return armEncoder.getVelocity() * 360.0 * Constants.armGearing;
   }
 
 

@@ -33,7 +33,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    //configureButtonBindings();
+    configureButtonBindings();
   }
 
   /**
@@ -56,7 +56,7 @@ public class RobotContainer {
    * @return the command to run in autonomous mode
    */
   public Command getAutonomousCommand() {
-    return shootBall;
+    return null;
   }
   
   /**
