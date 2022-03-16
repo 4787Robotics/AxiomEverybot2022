@@ -16,6 +16,7 @@ public class DriveTrain extends SubsystemBase {
   private WPI_TalonFX m_right1;
   private WPI_TalonFX m_left2;
   private WPI_TalonFX m_right2;
+
   
   private DifferentialDrive drive;
   
@@ -69,6 +70,9 @@ public class DriveTrain extends SubsystemBase {
     return m_left1.getSelectedSensorVelocity() * Constants.driveGearing * (Math.PI/180.0) * 6.0 * 10.0;
   }
 
+  public double getPosition() {
+    return m_left1.getSelectedSensorPosition() * Constants.driveGearing * (Math.PI/180.0) * 0.1524;
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

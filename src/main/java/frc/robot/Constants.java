@@ -31,7 +31,11 @@ public final class Constants {
     public static int shootButton = 4; // Y Button
 
     //Physical Constants
-    public static double limelightHeight = 37.5; // 
-    public static double hubHeight = 71; // 8 feet 8 inches is 104 inches, 71 for now bc the pit
+    public static double limelightHeight = 0.47; // 37 * 0.0254 (inches to m) 
+    public static double hubHeight = 2.034; 
+    // 8 feet 8 inches is 104 inches, 71 for now bc the pit, * 0.0254 for m
     public static double limelightMountAngle = 0;
+
+    //Led Stuff
+    public static int ledPort = 9;
 }

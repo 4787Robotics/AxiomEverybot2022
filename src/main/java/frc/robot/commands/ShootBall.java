@@ -44,7 +44,13 @@ public class ShootBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println(getDistance());
+    System.out.println(getDistance()); //0.3 meters off (margin of error?!?!?!?!?!?)
+    if (driveTrain.getPosition() < (getDistance() * 1.00)) {
+      driveTrain.autonomousDrive(0.15, 0);
+    }
+    else {
+
+    }
   }
     
 
