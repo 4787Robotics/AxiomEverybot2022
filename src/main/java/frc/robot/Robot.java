@@ -89,7 +89,12 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    /*if(!m_teleopCommand.isScheduled()) {
+      m_teleopCommand.schedule();
+      System.out.println("re-scheduled teleop commands");
+    }*/
+  }
 
   @Override
   public void testInit() {
