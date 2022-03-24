@@ -29,22 +29,28 @@ public class DriveTrain extends SubsystemBase {
 
     m_right1.setInverted(TalonFXInvertType.Clockwise);
     m_right2.setInverted(TalonFXInvertType.Clockwise);
+
     m_left1.setNeutralMode(NeutralMode.Coast);
     m_left2.setNeutralMode(NeutralMode.Coast);
     m_right1.setNeutralMode(NeutralMode.Coast);
     m_right2.setNeutralMode(NeutralMode.Coast);
+
     m_left2.follow(m_left1);
     m_right2.follow(m_right1);
+
+    m_right1.setSelectedSensorPosition(0);
+    m_left1.setSelectedSensorPosition(0);
 
     drive = new DifferentialDrive(m_left1,m_right1);
   }
 
   /**
    * arcadeDrive based teleoperated control. Left stick throttle, right stick turn.
-   * @param controller XboxController for teleop.
+   * @param throttle Input for speed.
+   * @param steer Input for turning speed.
    * @param maxSpeed Max speed [0.0..1.0].
    * @param maxTurnSpeed Max turn speed [0.0..1.0].
-   * @param squareInputs If set, squares inputs for low speed precision.
+   * @param squareInputs If set, squares inputs for precision at low speeds.
    */
   public void manualDrive(double throttle, double steer, double maxSpeed, double maxTurnSpeed, boolean squareInputs) {
     if(squareInputs) {
@@ -62,17 +68,40 @@ public class DriveTrain extends SubsystemBase {
   public void autonomousDrive(double speed, double turnSpeed) {
     drive.arcadeDrive(speed,turnSpeed,false);
   }
+  /**
+   * Sets the speeds for each side of tank drive individually (for easier usage with encoders).
+   * @param leftSpeed [-1.0..1.0]
+   * @param rightSpeed [-1.0..1.0]
+   */
+  public void autonomousTank(double leftSpeed, double rightSpeed) {
+    drive.tankDrive(leftSpeed,rightSpeed);
+  }
   
   public void stop() {
     drive.stopMotor();
   }
+  
+  /**
+   * @param rightSide Gets encoder position from right side if true, otherwise left side.
+   * @return Total distance driven in meters, as measured by TalonFX encoders.
+   */
+  public double getPosition(boolean rightSide) {
+    if(rightSide) {
+      return m_right1.getSelectedSensorPosition() * Constants.driveGearing * (Math.PI/180.0) * 0.1524;
+    } else {
+      return m_left1.getSelectedSensorPosition() * Constants.driveGearing * (Math.PI/180.0) * 0.1524;
+    }
+  }
+
   public double getVelocity() {
     return m_left1.getSelectedSensorVelocity() * Constants.driveGearing * (Math.PI/180.0) * 6.0 * 10.0;
   }
-
-  public double getPosition() {
-    return m_left1.getSelectedSensorPosition() * Constants.driveGearing * (Math.PI/180.0) * 0.1524;
+  
+  public void setZero() {
+    m_right1.setSelectedSensorPosition(0);
+    m_left1.setSelectedSensorPosition(0);
   }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

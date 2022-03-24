@@ -8,6 +8,9 @@ import frc.robot.subsystems.IntakeArm;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+// NO LONGER USING THIS COMMAND
 
 public class ToggleArmPosition extends CommandBase {
   private IntakeArm intake;
@@ -36,7 +39,7 @@ public class ToggleArmPosition extends CommandBase {
 
   @Override
   public void initialize() {
-    intake.setZero();
+    SmartDashboard.putNumber("Arm Position", intake.getPosition());
     if(intake.getPosition() >= 30) {
       intakeUp = true;
     } else {
@@ -47,7 +50,7 @@ public class ToggleArmPosition extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("ARM");
+    System.out.println("ARM: " + intakeUp);
     //measured in degrees
     if(intakeUp) {
       intake.setArmSpeed(armPID.calculate(intake.getPosition(), 0));

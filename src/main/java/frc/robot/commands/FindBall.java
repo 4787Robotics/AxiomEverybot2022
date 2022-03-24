@@ -7,6 +7,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
+//this whole class is kinda old, will have to check if it still actually works.
 public class FindBall extends CommandBase {
     // Drive and PID variables
     private DriveTrain driveTrain;

@@ -33,7 +33,9 @@ public class RobotContainer {
 
   ParallelCommandGroup teleop = new ParallelCommandGroup(
     new DriveCommand(driveTrain, ()-> -controller.getLeftY(), ()-> controller.getRightX()),
-    new IntakeCommand(intake, ()-> controller.getLeftTriggerAxis(), ()-> controller.getRightTriggerAxis()));
+    //new IntakeCommand(intake, ()-> controller.getLeftTriggerAxis(), ()-> controller.getRightTriggerAxis())
+    new ArmTester(intake, controller)
+  );
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -47,8 +49,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    armPositionButton.whenPressed(new ParallelCommandGroup(new ToggleArmPosition(intake),teleop));
-
+    //armPositionButton.whenPressed(new ParallelCommandGroup(new ToggleArmPosition(intake));
+    //shootBallButton.whileActiveContinuous(new DriveDistance(driveTrain));
     //QUICK NOTE: WE WANT TO CONFIGURE THE TYPE OF BUTTON FUNCTION THAT WE WANT TO USE
     // armPositionButton.whenPressed(command)
   }
