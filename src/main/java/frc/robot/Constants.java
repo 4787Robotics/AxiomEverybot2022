@@ -26,8 +26,8 @@ public final class Constants {
     public static double armGearing = 1.0/80.0;
 
     // Joystick Bindings
-    public static int armButton = 6; // Right Bumper
-    public static int intakeButton = 5; // Left Bumper
+    public static int raiseButton = 6; // Right Bumper
+    public static int lowerButton = 5; // Left Bumper
     public static int shootButton = 4; // Y Button
 
     //Physical Constants

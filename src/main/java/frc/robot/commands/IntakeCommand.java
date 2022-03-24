@@ -38,6 +38,11 @@ public class IntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(raiseArm.getAsBoolean()) {
+      intake.setArmSpeed(armPID.calculate(intake.getPosition(), 60));
+    } else if(lowerArm.getAsBoolean()) {
+      intake.setArmSpeed(armPID.calculate(intake.getPosition(), 0));
+    }
     intake.setIntakeSpeed(forwardSpeed.getAsDouble() - forwardSpeedButBackwards.getAsDouble());
   }
 
