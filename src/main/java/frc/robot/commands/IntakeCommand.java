@@ -13,17 +13,15 @@ import java.util.function.DoubleSupplier;
 
 public class IntakeCommand extends CommandBase {
   private IntakeArm intake;
-  private DoubleSupplier forwardSpeed;
-  private DoubleSupplier forwardSpeedButBackwards;
+  private DoubleSupplier ejectSpeedButNotBackwards;
   private BooleanSupplier lowerArm;
   //NEEDS TUNING
   private ProfiledPIDController armPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(5,5));
   
   /** Creates a new Intake. */
-  public IntakeCommand(IntakeArm intake, DoubleSupplier forwardSpeed, DoubleSupplier forwardSpeedButBackwards, BooleanSupplier lowerArm) {
+  public IntakeCommand(IntakeArm intake, DoubleSupplier ejectSpeedButNotBackwards, BooleanSupplier lowerArm) {
     this.intake = intake;
-    this.forwardSpeed = forwardSpeed;
-    this.forwardSpeedButBackwards = forwardSpeedButBackwards;
+    this.ejectSpeedButNotBackwards = ejectSpeedButNotBackwards;
     this.lowerArm = lowerArm;
     addRequirements(intake);
   }
@@ -42,6 +40,7 @@ public class IntakeCommand extends CommandBase {
       intake.setIntakeSpeed(1.0);
     } else {
       intake.setArmSpeed(armPID.calculate(intake.getPosition(), 60));
+      intake.setIntakeSpeed(-ejectSpeedButNotBackwards.getAsDouble());
     }
   }
 

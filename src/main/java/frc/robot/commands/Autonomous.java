@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -15,14 +14,9 @@ import frc.robot.subsystems.IntakeArm;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Autonomous extends SequentialCommandGroup {
-  private DriveTrain driveTrain;
-  private IntakeArm intake;
-  /** Creates a new Autonomous. */
 
+  /** Creates a new Autonomous. */
   public Autonomous(DriveTrain driveTrain, IntakeArm intake) {
-    this.driveTrain = driveTrain;
-    this.intake = intake;
-    
     addCommands(
       new ParallelRaceGroup(new AutoShoot(intake, 1), new WaitCommand(2)), //shoots the ball
       new AutoDrive(driveTrain, 180, true), //turns 180 degrees
