@@ -26,18 +26,20 @@ public class RobotContainer {
   IntakeArm intake = new IntakeArm();
 
   FindBall findBall = new FindBall(driveTrain, true);
-  ShootBall shootBall = new ShootBall(intake, driveTrain);
+  //ShootBall shootBall = new ShootBall(intake, driveTrain);
 
   ParallelCommandGroup teleop = new ParallelCommandGroup(
     new DriveCommand(driveTrain, ()-> -controller.getLeftY(), ()-> controller.getRightX()),
-    new IntakeCommand(
+    /*new IntakeCommand(
       intake,
       ()-> controller.getLeftTriggerAxis(),
       ()-> controller.getRightTriggerAxis(),
       ()-> controller.getRawButton(Constants.raiseButton),
       ()-> controller.getRawButton(Constants.lowerButton)
-    )
+    )*/
+    new ArmTester(intake, controller)
   );
+  Autonomous initialAutonomous = new Autonomous(driveTrain, intake);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -64,7 +66,7 @@ public class RobotContainer {
    * @return the command to run in autonomous mode
    */
   public Command getAutonomousCommand() {
-    return shootBall;
+    return null;
   }
   
   /**

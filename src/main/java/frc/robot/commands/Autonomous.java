@@ -4,7 +4,9 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeArm;
 
@@ -13,15 +15,15 @@ import frc.robot.subsystems.IntakeArm;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Autonomous extends SequentialCommandGroup {
   private DriveTrain driveTrain;
-  private IntakeArm intakeArm;
+  private IntakeArm intake;
   /** Creates a new Autonomous. */
 
-  public Autonomous(DriveTrain driveTrain, IntakeArm intakeArm) {
+  public Autonomous(DriveTrain driveTrain, IntakeArm intake) {
     this.driveTrain = driveTrain;
-    this.intakeArm = intakeArm;
-    addSequential(new DriveTrain());
-    addSequential();
-
+    this.intake = intake;
+    addCommands(
+      new ParallelRaceGroup(new AutoShoot(intake), new WaitCommand(2))
+    );
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
