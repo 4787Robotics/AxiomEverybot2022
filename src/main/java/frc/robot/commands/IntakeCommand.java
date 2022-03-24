@@ -15,17 +15,15 @@ public class IntakeCommand extends CommandBase {
   private IntakeArm intake;
   private DoubleSupplier forwardSpeed;
   private DoubleSupplier forwardSpeedButBackwards;
-  private BooleanSupplier raiseArm;
   private BooleanSupplier lowerArm;
   //NEEDS TUNING
   private ProfiledPIDController armPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(5,5));
   
   /** Creates a new Intake. */
-  public IntakeCommand(IntakeArm intake, DoubleSupplier forwardSpeed, DoubleSupplier forwardSpeedButBackwards, BooleanSupplier raiseArm, BooleanSupplier lowerArm) {
+  public IntakeCommand(IntakeArm intake, DoubleSupplier forwardSpeed, DoubleSupplier forwardSpeedButBackwards, BooleanSupplier lowerArm) {
     this.intake = intake;
     this.forwardSpeed = forwardSpeed;
     this.forwardSpeedButBackwards = forwardSpeedButBackwards;
-    this.raiseArm = raiseArm;
     this.lowerArm = lowerArm;
     addRequirements(intake);
   }
@@ -39,12 +37,12 @@ public class IntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(raiseArm.getAsBoolean()) {
-      intake.setArmSpeed(armPID.calculate(intake.getPosition(), 60));
-    } else if(lowerArm.getAsBoolean()) {
+    if(lowerArm.getAsBoolean()) {
       intake.setArmSpeed(armPID.calculate(intake.getPosition(), 0));
+      intake.setIntakeSpeed(1.0);
+    } else {
+      intake.setArmSpeed(armPID.calculate(intake.getPosition(), 60));
     }
-    intake.setIntakeSpeed(forwardSpeed.getAsDouble() - forwardSpeedButBackwards.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
