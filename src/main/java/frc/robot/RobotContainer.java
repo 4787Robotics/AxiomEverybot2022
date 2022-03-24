@@ -39,7 +39,7 @@ public class RobotContainer {
     )*/
     new ArmTester(intake, controller)
   );
-  Autonomous initialAutonomous = new Autonomous(driveTrain, intake);
+  Autonomous autonomous = new Autonomous(driveTrain, intake);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -66,7 +66,7 @@ public class RobotContainer {
    * @return the command to run in autonomous mode
    */
   public Command getAutonomousCommand() {
-    return null; //Replace with 'initialAutonomous'
+    return autonomous;
   }
   
   /**

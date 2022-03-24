@@ -13,6 +13,8 @@ public class AutoDrive extends CommandBase {
   private DriveTrain driveTrain;
   private double distance;
   private boolean turn;
+  private double positionLeft;
+  private double positionRight;
   //NEEDS TUNING
   private PIDController drivePID = new PIDController(0, 0, 0);
 
@@ -31,22 +33,23 @@ public class AutoDrive extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    driveTrain.setZero();
+    positionLeft = driveTrain.getPosition(false);
+    positionRight = driveTrain.getPosition(true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(driveTrain.getPosition(false) < distance) {
+    if(driveTrain.getPosition(false) < distance + positionLeft) {
       if(turn) {
         driveTrain.autonomousTank(
-          drivePID.calculate(driveTrain.getPosition(false), distance),
-          drivePID.calculate(driveTrain.getPosition(true), -distance)
+          drivePID.calculate(driveTrain.getPosition(false), distance + positionLeft),
+          drivePID.calculate(driveTrain.getPosition(true), -distance + positionRight)
         );
       } else {
         driveTrain.autonomousTank(
-          drivePID.calculate(driveTrain.getPosition(false), distance),
-          drivePID.calculate(driveTrain.getPosition(true), distance)
+          drivePID.calculate(driveTrain.getPosition(false), distance + positionLeft),
+          drivePID.calculate(driveTrain.getPosition(true), distance + positionRight)
         );
       }
     }
@@ -54,11 +57,13 @@ public class AutoDrive extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    driveTrain.autonomousTank(0,0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return driveTrain.getPosition(false) >= distance;
+    return driveTrain.getPosition(false) >= distance + positionLeft;
   }
 }
