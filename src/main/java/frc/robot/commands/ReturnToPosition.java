@@ -9,7 +9,7 @@ import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 
-public class DriveDistance extends CommandBase {
+public class ReturnToPosition extends CommandBase {
   private DriveTrain driveTrain;
   private double distanceLeft;
   private double distanceRight;
@@ -17,7 +17,7 @@ public class DriveDistance extends CommandBase {
   private ProfiledPIDController PID = new ProfiledPIDController(0.1,0,0,new TrapezoidProfile.Constraints(1,1));
   
   /** Creates a new DriveDistance. */
-  public DriveDistance(DriveTrain driveTrain) {
+  public ReturnToPosition(DriveTrain driveTrain) {
     this.driveTrain = driveTrain;
     distanceLeft = driveTrain.getPosition(false);
     distanceRight = driveTrain.getPosition(true);
