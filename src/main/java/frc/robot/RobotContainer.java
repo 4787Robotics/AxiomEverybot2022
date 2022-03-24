@@ -66,7 +66,7 @@ public class RobotContainer {
    * @return the command to run in autonomous mode
    */
   public Command getAutonomousCommand() {
-    return null;
+    return null; //Replace with 'initialAutonomous'
   }
   
   /**

@@ -23,6 +23,7 @@ public class Autonomous extends SequentialCommandGroup {
     this.intake = intake;
     addCommands(
       new ParallelRaceGroup(new AutoShoot(intake), new WaitCommand(2))
+      //new ParallelRaceGroup()
     );
 
     // Add your commands in the addCommands() call, e.g.

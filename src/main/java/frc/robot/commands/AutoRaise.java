@@ -4,21 +4,38 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.IntakeArm;
 
 public class AutoRaise extends CommandBase {
+  private IntakeArm intakeArm;
+  private boolean intakeUp = true; 
+  private ProfiledPIDController armPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(5,5));
+
   /** Creates a new AutoRaise. */
-  public AutoRaise() {
+  public AutoRaise(IntakeArm intakeArm, boolean intakeUp) {
+    this.intakeUp = intakeUp;
+    this.intakeArm = intakeArm;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+   
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    if(intakeUp) {
+      intakeArm.setArmSpeed(armPID.calculate(intakeArm.getPosition(), 60));
+    } else if(intakeUp) {
+      intakeArm.setArmSpeed(armPID.calculate(intakeArm.getPosition(), 0));
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
