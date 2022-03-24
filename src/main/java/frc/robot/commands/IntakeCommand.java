@@ -17,6 +17,7 @@ public class IntakeCommand extends CommandBase {
   private DoubleSupplier forwardSpeedButBackwards;
   private BooleanSupplier raiseArm;
   private BooleanSupplier lowerArm;
+  //NEEDS TUNING
   private ProfiledPIDController armPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(5,5));
   
   /** Creates a new Intake. */

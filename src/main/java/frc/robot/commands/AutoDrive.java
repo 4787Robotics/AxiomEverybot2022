@@ -13,6 +13,7 @@ public class AutoDrive extends CommandBase {
   private DriveTrain driveTrain;
   private double distance;
   private boolean turn;
+  //NEEDS TUNING
   private PIDController drivePID = new PIDController(0, 0, 0);
 
   /** Creates a new AutoDrive. */

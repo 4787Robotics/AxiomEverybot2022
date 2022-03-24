@@ -22,16 +22,14 @@ public class Autonomous extends SequentialCommandGroup {
   public Autonomous(DriveTrain driveTrain, IntakeArm intake) {
     this.driveTrain = driveTrain;
     this.intake = intake;
+    
     addCommands(
       new ParallelRaceGroup(new AutoShoot(intake, 1), new WaitCommand(2)), //shoots the ball
+      new AutoDrive(driveTrain, 180, true), //turns 180 degrees
       new AutoRaise(intake, false), //lowers the arm
       new ParallelRaceGroup(new AutoShoot(intake, -1), new FindBall(driveTrain, true)), //finds the ball and intakes it
       new AutoRaise(intake, true), //raises the arm
       new ParallelRaceGroup(new AutoShoot(intake,1), new WaitCommand(2)) //shoots the ball
     );
-
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands();
   }
 }

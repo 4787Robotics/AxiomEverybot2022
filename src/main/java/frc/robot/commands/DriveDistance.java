@@ -13,6 +13,7 @@ public class DriveDistance extends CommandBase {
   private DriveTrain driveTrain;
   private double distanceLeft;
   private double distanceRight;
+  //NEEDS TUNING
   private ProfiledPIDController PID = new ProfiledPIDController(0.1,0,0,new TrapezoidProfile.Constraints(1,1));
   
   /** Creates a new DriveDistance. */
@@ -33,7 +34,7 @@ public class DriveDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("hello");
+    System.out.println("driving");
     driveTrain.autonomousTank(
       PID.calculate(driveTrain.getPosition(false),-distanceLeft),
       PID.calculate(driveTrain.getPosition(true),-distanceRight)

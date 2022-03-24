@@ -7,11 +7,11 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
-//this whole class is kinda old, will have to check if it still actually works.
 public class FindBall extends CommandBase {
     // Drive and PID variables
     private DriveTrain driveTrain;
-    private PIDController drivePID = new PIDController(-0.036,0,-0.005); // OUTDATED CONSTANTS
+    //NEEDS TUNING
+    private PIDController drivePID = new PIDController(-0.036,0,-0.005);
     private double turnValue = 0;
     private double driveValue = 0;
 
@@ -66,7 +66,7 @@ public class FindBall extends CommandBase {
     
     @Override
     public boolean isFinished() {
-        return false;
+        return ta.getDouble(0.0) >= 15;
     }
 
 

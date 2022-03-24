@@ -11,7 +11,8 @@ import frc.robot.subsystems.IntakeArm;
 
 public class AutoRaise extends CommandBase {
   private IntakeArm intakeArm;
-  private boolean intakeUp; 
+  private boolean intakeUp;
+  //NEEDS TUNING
   private ProfiledPIDController armPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(5,5));
 
   /** Creates a new AutoRaise. */
@@ -44,6 +45,6 @@ public class AutoRaise extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (intakeUp && intakeArm.getPosition() >= 60) || (!intakeUp && intakeArm.getPosition() <= 1);
   }
 }
