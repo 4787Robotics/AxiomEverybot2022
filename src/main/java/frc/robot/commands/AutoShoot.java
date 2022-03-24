@@ -9,10 +9,14 @@ import frc.robot.subsystems.IntakeArm;
 
 public class AutoShoot extends CommandBase {
   private IntakeArm intake;
+  private double intakeSpeed;
+
 
   /** Creates a new AutoShoot. */
-  public AutoShoot(IntakeArm intake) {
+  public AutoShoot(IntakeArm intake, double intakeSpeed) {
     this.intake = intake;
+    this.intakeSpeed = intakeSpeed;
+
   }
 
   // Called when the command is initially scheduled.
@@ -22,7 +26,7 @@ public class AutoShoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setIntakeSpeed(1);
+    intake.setIntakeSpeed(intakeSpeed);
   }
 
   // Called once the command ends or is interrupted.

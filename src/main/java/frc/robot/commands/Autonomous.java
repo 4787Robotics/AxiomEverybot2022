@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -22,8 +23,11 @@ public class Autonomous extends SequentialCommandGroup {
     this.driveTrain = driveTrain;
     this.intake = intake;
     addCommands(
-      new ParallelRaceGroup(new AutoShoot(intake), new WaitCommand(2))
-      //new ParallelRaceGroup()
+      new ParallelRaceGroup(new AutoShoot(intake, 1), new WaitCommand(2)), //shoots the ball
+      new AutoRaise(intake, false), //lowers the arm
+      new ParallelRaceGroup(new AutoShoot(intake, -1), new FindBall(driveTrain, true)), //finds the ball and intakes it
+      new AutoRaise(intake, true), //raises the arm
+      new ParallelRaceGroup(new AutoShoot(intake,1), new WaitCommand(2)) //shoots the ball
     );
 
     // Add your commands in the addCommands() call, e.g.

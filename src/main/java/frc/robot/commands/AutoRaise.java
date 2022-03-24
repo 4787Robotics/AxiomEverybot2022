@@ -11,7 +11,7 @@ import frc.robot.subsystems.IntakeArm;
 
 public class AutoRaise extends CommandBase {
   private IntakeArm intakeArm;
-  private boolean intakeUp = true; 
+  private boolean intakeUp; 
   private ProfiledPIDController armPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(5,5));
 
   /** Creates a new AutoRaise. */
