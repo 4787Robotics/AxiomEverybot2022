@@ -28,7 +28,7 @@ public class RobotContainer {
   //ShootBall shootBall = new ShootBall(intake, driveTrain);
 
   ParallelCommandGroup teleop = new ParallelCommandGroup(
-    new DriveCommand(driveTrain, ()-> -controller.getLeftY(), ()-> controller.getRightX()),
+    new DriveCommand(driveTrain, ()-> -controller.getLeftY(), ()-> controller.getRightX(), ()-> controller.getRawButton(1)),
     /*new IntakeCommand(
       intake,
       ()-> controller.getLeftTriggerAxis(),

@@ -41,6 +41,11 @@ public class DriveTrain extends SubsystemBase {
     m_right1.setSelectedSensorPosition(0);
     m_left1.setSelectedSensorPosition(0);
 
+    m_left1.configOpenloopRamp(1);
+    m_left2.configOpenloopRamp(1);
+    m_right1.configOpenloopRamp(1);
+    m_right2.configOpenloopRamp(1);
+
     drive = new DifferentialDrive(m_left1,m_right1);
   }
 
@@ -57,7 +62,6 @@ public class DriveTrain extends SubsystemBase {
       throttle = Math.copySign(throttle*throttle, throttle);
       steer = Math.copySign(steer*steer, steer);
     } // does not use arcadeDrive's squareInputs parameter to preserve max speeds
-    System.out.println(maxSpeed*throttle + "," + maxTurnSpeed*steer);
     drive.arcadeDrive(maxSpeed*throttle, maxTurnSpeed*steer, false);
   }
 
@@ -75,7 +79,6 @@ public class DriveTrain extends SubsystemBase {
    * @param rightSpeed [-1.0..1.0]
    */
   public void autonomousTank(double leftSpeed, double rightSpeed) {
-    System.out.println(leftSpeed + "," + rightSpeed);
     drive.tankDrive(leftSpeed,rightSpeed);
   }
   
@@ -94,14 +97,18 @@ public class DriveTrain extends SubsystemBase {
       return m_left1.getSelectedSensorPosition() * Constants.driveGearing * (Math.PI/180.0) * 0.1524;
     }
   }
-
-  public double getVelocity() {
-    return m_left1.getSelectedSensorVelocity() * Constants.driveGearing * (Math.PI/180.0) * 6.0 * 10.0;
-  }
   
   public void setZero() {
     m_right1.setSelectedSensorPosition(0);
     m_left1.setSelectedSensorPosition(0);
+  }
+
+  public double getOutput(boolean rightSide) {
+    if(rightSide) {
+      return m_right1.get();
+    } else {
+      return m_left1.get();
+    }
   }
 
   @Override
