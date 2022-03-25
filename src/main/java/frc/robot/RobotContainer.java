@@ -32,7 +32,8 @@ public class RobotContainer {
     /*new IntakeCommand(
       intake,
       ()-> controller.getLeftTriggerAxis(),
-      ()-> controller.getRawButton(Constants.lowerButton)
+      ()-> controller.getRawButton(Constants.lowerButton),
+      ()-> controller.getRawButton(Constants.halfLowerButton)
     )*/
     new ArmTester(intake, controller)
   );
@@ -63,7 +64,7 @@ public class RobotContainer {
    * @return the command to run in autonomous mode
    */
   public Command getAutonomousCommand() {
-    return null;
+    return autonomous;
   }
   
   /**

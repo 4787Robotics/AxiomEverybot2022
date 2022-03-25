@@ -19,7 +19,8 @@ public class Autonomous extends SequentialCommandGroup {
   public Autonomous(DriveTrain driveTrain, IntakeArm intake) {
     addCommands(
       new ParallelRaceGroup(new AutoShoot(intake, 1), new WaitCommand(2)), //shoots the ball
-      new AutoDrive(driveTrain, 180, true), //turns 180 degrees
+      new ParallelRaceGroup(new Drive(driveTrain,-0.35,0), new WaitCommand(2))
+      /*new AutoDrive(driveTrain, 180, true), //turns 180 degrees
       new AutoRaise(intake, false), //lowers the arm
       new ParallelRaceGroup(new AutoShoot(intake, -1), new FindBall(driveTrain, true)), //finds the ball and intakes it
       new AutoRaise(intake, true), //raises the arm
@@ -28,7 +29,7 @@ public class Autonomous extends SequentialCommandGroup {
       new AutoDrive(driveTrain, 180, true), //Turns 180 degrees
       //new AutoDrive(driveTrain, 0.5, false), //Drives forward 0.5 meters
       //new AutoDrive(driveTrain, 90, true), //Turns 90 degrees
-      new AutoDrive(driveTrain, 1.5, false) //Drives forward 1.5 meters
+      new AutoDrive(driveTrain, 1.5, false) //Drives forward 1.5 meters*/
     );
   }
 }

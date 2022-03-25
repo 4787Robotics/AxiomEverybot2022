@@ -28,7 +28,7 @@ public final class Constants {
     // Joystick Bindings
     public static int raiseButton = 6; // Right Bumper
     public static int lowerButton = 5; // Left Bumper
-    public static int shootButton = 4; // Y Button
+    public static int halfLowerButton = 4; // Y Button
 
     //Physical Constants (meters)
     public static double limelightHeight = 0.47;

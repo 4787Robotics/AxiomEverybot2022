@@ -57,6 +57,7 @@ public class DriveTrain extends SubsystemBase {
       throttle = Math.copySign(throttle*throttle, throttle);
       steer = Math.copySign(steer*steer, steer);
     } // does not use arcadeDrive's squareInputs parameter to preserve max speeds
+    System.out.println(maxSpeed*throttle + "," + maxTurnSpeed*steer);
     drive.arcadeDrive(maxSpeed*throttle, maxTurnSpeed*steer, false);
   }
 
@@ -74,6 +75,7 @@ public class DriveTrain extends SubsystemBase {
    * @param rightSpeed [-1.0..1.0]
    */
   public void autonomousTank(double leftSpeed, double rightSpeed) {
+    System.out.println(leftSpeed + "," + rightSpeed);
     drive.tankDrive(leftSpeed,rightSpeed);
   }
   
