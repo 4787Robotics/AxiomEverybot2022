@@ -15,13 +15,15 @@ import com.revrobotics.RelativeEncoder;
 public class IntakeArm extends SubsystemBase {
   private CANSparkMax armMotor;
   private RelativeEncoder armEncoder;
-  private MotorController intakeMotor;
+  private MotorController intakeMotorTop;
+  private MotorController intakeMotorBottom;
 
   /** Creates a new IntakeArm. */
   public IntakeArm() {
     armMotor = new CANSparkMax(Constants.motor_arm, MotorType.kBrushless);
     armEncoder = armMotor.getEncoder();
-    intakeMotor = new WPI_TalonSRX(Constants.motor_intake);
+    intakeMotorTop = new WPI_TalonSRX(Constants.motor_intakeTop);
+    intakeMotorBottom = new WPI_TalonSRX(Constants.motor_intakeBottom);
     this.setEncoder(0);
   }
 
@@ -30,7 +32,8 @@ public class IntakeArm extends SubsystemBase {
   }
 
   public void setIntakeSpeed(double speed) {
-    intakeMotor.set(speed);
+    intakeMotorTop.set(speed);
+    intakeMotorBottom.set(-speed);
   }
 
   public void setEncoder(double value) {
