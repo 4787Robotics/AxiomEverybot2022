@@ -32,11 +32,12 @@ public class ArmTester extends CommandBase {
     if(controller.getLeftTriggerAxis()==0 && controller.getRightTriggerAxis()==0 && intake.getPosition() < 7) {
       intake.setArmSpeed(-0.08);
     }
+
     if(controller.getRawButton(6)) {
       intake.setIntakeSpeed(1);
     } else if(controller.getRawButton(5)) {
       intake.setIntakeSpeed(-0.5);
-    } else {
+    } else { 
       intake.setIntakeSpeed(0);
     }
     SmartDashboard.putNumber("Arm Angle",intake.getPosition());
