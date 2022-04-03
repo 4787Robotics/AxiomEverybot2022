@@ -18,7 +18,7 @@ public class Climber extends SubsystemBase {
     motorRight = new WPI_TalonFX(Constants.motor_climbRight);
   }
 
-  public void setClimberSpeed(double speed) {
+  public void setSpeed(double speed) {
     motorLeft.set(speed);
     motorRight.set(speed);
   }

@@ -24,6 +24,7 @@ public class RobotContainer {
   XboxController controller = new XboxController(0);
 
   IntakeArm intake = new IntakeArm();
+  Climber climber = new Climber();
 
   FindBall findBall = new FindBall(driveTrain, true);
   //ShootBall shootBall = new ShootBall(intake, driveTrain);
@@ -36,7 +37,8 @@ public class RobotContainer {
       ()-> controller.getRawButton(Constants.lowerButton),
       ()-> controller.getRawButton(Constants.halfLowerButton)
     )*/
-    new ArmTester(intake, controller)
+    //new ArmTester(intake, controller)
+    new ExtendClimber(climber, () -> controller.getLeftTriggerAxis() - controller.getRightTriggerAxis())
   );
   Autonomous autonomous = new Autonomous(driveTrain, intake);
 
