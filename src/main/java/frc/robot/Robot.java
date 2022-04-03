@@ -73,7 +73,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     m_teleopCommand = m_robotContainer.getTeleopCommand();
 
-    // Schedule teleop command (DriveCommand)
+    // Schedule teleop command
     if(m_teleopCommand != null) {
       m_teleopCommand.schedule();
     }
