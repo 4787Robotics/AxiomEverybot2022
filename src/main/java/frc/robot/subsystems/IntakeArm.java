@@ -23,8 +23,9 @@ public class IntakeArm extends SubsystemBase {
     armMotor = new CANSparkMax(Constants.motor_arm, MotorType.kBrushless);
     armEncoder = armMotor.getEncoder();
     intakeMotorTop = new WPI_TalonSRX(Constants.motor_intakeTop);
-    intakeMotorBottom = new WPI_TalonSRX(Constants.motor_intakeBottom);
+    //intakeMotorBottom = new WPI_TalonSRX(Constants.motor_intakeBottom);
     this.setEncoder(0);
+    armMotor.setOpenLoopRampRate(0.1);
   }
 
   public void setArmSpeed(double speed) {
@@ -33,7 +34,7 @@ public class IntakeArm extends SubsystemBase {
 
   public void setIntakeSpeed(double speed) {
     intakeMotorTop.set(speed);
-    intakeMotorBottom.set(-speed);
+    //intakeMotorBottom.set(-speed);
   }
 
   public void setEncoder(double value) {

@@ -26,9 +26,9 @@ public class DriveCommand extends CommandBase {
     @Override
     public void execute() {
         if(slow.getAsBoolean()) {
-            driveTrain.manualDrive(throttle.getAsDouble(), steer.getAsDouble(), 0.3, 0.2, true);
+            driveTrain.manualDrive(throttle.getAsDouble(), steer.getAsDouble(), 0.2, 0.2, true);
         } else {
-            driveTrain.manualDrive(throttle.getAsDouble(), steer.getAsDouble(), 0.65, 0.45, true);
+            driveTrain.manualDrive(throttle.getAsDouble(), steer.getAsDouble(), 0.4, 0.4, true);
         }
         SmartDashboard.putNumber("Left Position", driveTrain.getPosition(false));
         SmartDashboard.putNumber("Right Position", driveTrain.getPosition(true));

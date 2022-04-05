@@ -31,8 +31,8 @@ public class RobotContainer {
       ()-> controller.getRightTriggerAxis(),
       ()-> controller.getLeftTriggerAxis()
     ),*/
-    //new ArmTester(intake, controller)
-    new ExtendClimber(climber, () -> controller.getLeftTriggerAxis() - controller.getRightTriggerAxis())
+    new ArmTester(intake, controller)
+    //new ExtendClimber(climber, () -> controller.getLeftTriggerAxis() - controller.getRightTriggerAxis())
   );
   Autonomous autonomous = new Autonomous(driveTrain, intake);
 

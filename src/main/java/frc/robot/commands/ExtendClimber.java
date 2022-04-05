@@ -8,11 +8,11 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
-public class ClimbTester extends CommandBase {
+public class ExtendClimber extends CommandBase {
   private Climber climber;
   private DoubleSupplier climbSpeed;
   /** Creates a new ClimbTester. */
-  public ClimbTester(Climber climber, DoubleSupplier climbSpeed) {
+  public ExtendClimber(Climber climber, DoubleSupplier climbSpeed) {
     this.climber = climber;
     this.climbSpeed = climbSpeed;
     addRequirements(climber);
