@@ -13,12 +13,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class DriveTrain extends SubsystemBase {
-  private WPI_TalonFX m_left1;
-  private WPI_TalonFX m_right1;
-  private WPI_TalonFX m_left2;
-  private WPI_TalonFX m_right2;
-
-  
+  private WPI_TalonFX m_left1, m_left2, m_right1, m_right2;
   private DifferentialDrive drive;
   
   /** Creates a new DriveTrain and initializes motor controllers. */

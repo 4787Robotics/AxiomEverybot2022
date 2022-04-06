@@ -11,7 +11,6 @@ public class AutoShoot extends CommandBase {
   private IntakeArm intake;
   private double intakeSpeed;
 
-
   /** Creates a new AutoShoot. */
   public AutoShoot(IntakeArm intake, double intakeSpeed) {
     this.intake = intake;

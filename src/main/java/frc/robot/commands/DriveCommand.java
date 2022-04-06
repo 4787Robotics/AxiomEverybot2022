@@ -7,8 +7,7 @@ import java.util.function.DoubleSupplier;
 
 public class DriveCommand extends CommandBase {
     private DriveTrain driveTrain;
-    private DoubleSupplier throttle;
-    private DoubleSupplier steer;
+    private DoubleSupplier throttle, steer;
     private BooleanSupplier slow;
 
     public DriveCommand(DriveTrain driveTrain, DoubleSupplier throttle, DoubleSupplier steer, BooleanSupplier slow) {

@@ -9,8 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class Climber extends SubsystemBase {
-  private WPI_TalonFX motorLeft;
-  private WPI_TalonFX motorRight;
+  private WPI_TalonFX motorLeft, motorRight;
 
   /** Creates a new Climber. */
   public Climber() {
