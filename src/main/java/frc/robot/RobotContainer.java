@@ -19,27 +19,35 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  XboxController controller = new XboxController(0);
-  Joystick joystick = new Joystick(1);
-
-  DriveTrain driveTrain = new DriveTrain();
-  IntakeArm intake = new IntakeArm();
-  Climber climber = new Climber();
-
-  ParallelCommandGroup teleopGroup = new ParallelCommandGroup(
-    new DriveCommand(driveTrain, ()-> -controller.getLeftY(), ()-> controller.getRightX(), ()-> controller.getRawButton(1)),
-    /*new IntakeCommand(
-      intake,
-      ()-> controller.getRightTriggerAxis(),
-      ()-> controller.getLeftTriggerAxis()
-    ),*/
-    new ArmTester(intake, controller),
-    new ExtendClimber(climber, () -> joystick.getY())
-  );
-  Autonomous autonomous = new Autonomous(driveTrain, intake);
+  private XboxController controller;
+  private Joystick joystick;
+  private DriveTrain driveTrain;
+  private IntakeArm intake;
+  private Climber climber;
+  private ParallelCommandGroup teleopCommand;
+  private Autonomous autoCommand;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {}
+  public RobotContainer() {
+    controller = new XboxController(0);
+    joystick = new Joystick(1);
+
+    driveTrain = new DriveTrain();
+    intake = new IntakeArm();
+    climber = new Climber();
+    
+    teleopCommand = new ParallelCommandGroup(
+      new DriveCommand(driveTrain, ()-> -controller.getLeftY(), ()-> controller.getRightX(), ()-> controller.getRawButton(1)),
+      /*new IntakeCommand(
+        intake,
+        ()-> controller.getRightTriggerAxis(),
+        ()-> controller.getLeftTriggerAxis()
+      ),*/
+      new ArmTester(intake, controller),
+      new ExtendClimber(climber, () -> joystick.getY())
+    );
+    autoCommand = new Autonomous(driveTrain, intake);
+  }
   
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -47,7 +55,7 @@ public class RobotContainer {
    * @return the command to run in autonomous mode
    */
   public Command getAutonomousCommand() {
-    return autonomous;
+    return autoCommand;
   }
   
   /**
@@ -56,6 +64,6 @@ public class RobotContainer {
    * @return the command to run in teleoperated mode
    */
   public Command getTeleopCommand() {
-    return teleopGroup;
+    return teleopCommand;
   }
 }
