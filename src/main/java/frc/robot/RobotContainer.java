@@ -44,7 +44,7 @@ public class RobotContainer {
         ()-> controller.getLeftTriggerAxis()
       ),*/
       new ArmTester(intake, controller),
-      new ExtendClimber(climber, () -> joystick.getY())
+      new ExtendClimber(climber, () -> 0.4*joystick.getY())
     );
     autoCommand = new Autonomous(driveTrain, intake);
   }
