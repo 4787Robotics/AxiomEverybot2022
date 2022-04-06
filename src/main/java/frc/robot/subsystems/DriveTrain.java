@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -47,6 +48,7 @@ public class DriveTrain extends SubsystemBase {
     m_right2.configOpenloopRamp(0.7);
 
     drive = new DifferentialDrive(m_left1,m_right1);
+
   }
 
   /**
@@ -113,6 +115,9 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Left Output",m_left1.get());
+    SmartDashboard.putNumber("Right Output",m_right1.get());
+    SmartDashboard.putNumber("Left Position",this.getPosition(false));
+    SmartDashboard.putNumber("Right Position",this.getPosition(true));
   }
 }

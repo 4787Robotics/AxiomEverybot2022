@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.IntakeArm;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ArmTester extends CommandBase {
@@ -40,8 +39,6 @@ public class ArmTester extends CommandBase {
     } else { 
       intake.setIntakeSpeed(0);
     }
-    SmartDashboard.putNumber("Arm Angle",intake.getPosition());
-    SmartDashboard.putNumber("Arm Speed",intake.getVelocity());
   }
 
   // Called once the command ends or is interrupted.

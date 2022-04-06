@@ -7,18 +7,12 @@ package frc.robot.commands;
 import frc.robot.subsystems.IntakeArm;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 public class IntakeCommand extends CommandBase {
   private IntakeArm intake;
   private DoubleSupplier ejectSpeedButNotBackwards;
   private DoubleSupplier armSetpoint;
-  //NEEDS TUNING
-  private PIDController armPID = new PIDController(0.006, 0, 0.001);
   
   /** Creates a new Intake. */
   public IntakeCommand(IntakeArm intake, DoubleSupplier ejectSpeedButNotBackwards, DoubleSupplier armSetpoint) {
@@ -37,13 +31,12 @@ public class IntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setArmSpeed(armPID.calculate(intake.getPosition(), 78 - (83 * armSetpoint.getAsDouble())));
+    intake.positionSetpoint(78 - (83 * armSetpoint.getAsDouble()));
     if(intake.getPosition() <= 5) {
       intake.setIntakeSpeed(-1.0);
     } else {
       intake.setIntakeSpeed(ejectSpeedButNotBackwards.getAsDouble());
     }
-    SmartDashboard.putNumber("Arm Angle", intake.getPosition());
   }
 
   // Called once the command ends or is interrupted.

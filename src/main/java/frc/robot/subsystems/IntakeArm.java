@@ -7,25 +7,41 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.RelativeEncoder;
 
 public class IntakeArm extends SubsystemBase {
   private CANSparkMax armMotor;
   private RelativeEncoder armEncoder;
-  private MotorController intakeMotorTop;
-  private MotorController intakeMotorBottom;
+  private MotorController intakeMotor;
+  private SparkMaxPIDController PID;
+  private double kP, kI, kD; // pid gains
+  private double p, i, d; // inputted values from SmartDashboard
 
   /** Creates a new IntakeArm. */
   public IntakeArm() {
     armMotor = new CANSparkMax(Constants.motor_arm, MotorType.kBrushless);
     armEncoder = armMotor.getEncoder();
-    intakeMotorTop = new WPI_TalonSRX(Constants.motor_intakeTop);
-    //intakeMotorBottom = new WPI_TalonSRX(Constants.motor_intakeBottom);
-    this.setEncoder(0);
+    intakeMotor = new WPI_TalonSRX(Constants.motor_intake);
     armMotor.setOpenLoopRampRate(0.1);
+    armEncoder.setPositionConversionFactor(360.0 * Constants.armGearing);
+    armEncoder.setVelocityConversionFactor(360.0 * Constants.armGearing / 60.0);
+    this.setEncoder(0);
+
+    PID = armMotor.getPIDController();
+    PID.setP(kP);
+    PID.setI(kI);
+    PID.setD(kD);
+    PID.setFF(0);
+    PID.setIZone(0);
+    PID.setOutputRange(-1.0, 1.0);
+    SmartDashboard.putNumber("Arm P gain",kP);
+    SmartDashboard.putNumber("Arm I gain",kI);
+    SmartDashboard.putNumber("Arm D gain",kD);
   }
 
   public void setArmSpeed(double speed) {
@@ -33,25 +49,45 @@ public class IntakeArm extends SubsystemBase {
   }
 
   public void setIntakeSpeed(double speed) {
-    intakeMotorTop.set(speed);
-    //intakeMotorBottom.set(-speed);
+    intakeMotor.set(speed);
+  }
+
+  public void positionSetpoint(double setpoint) {
+    PID.setReference(setpoint, CANSparkMax.ControlType.kPosition);
   }
 
   public void setEncoder(double value) {
-    armEncoder.setPosition(value / (360.0 * Constants.armGearing));
+    armEncoder.setPosition(value);
   }
 
   public double getPosition() {
-    return armEncoder.getPosition() * 360.0 * Constants.armGearing; //0-60 degrees range
+    return armEncoder.getPosition(); //0-60 degrees range
   }
   
   public double getVelocity() {
-    return armEncoder.getVelocity() * 360.0 * Constants.armGearing;
+    return armEncoder.getVelocity();
   }
 
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Arm Angle",armEncoder.getPosition());
+    SmartDashboard.putNumber("Arm Speed",armEncoder.getVelocity());
+    SmartDashboard.putNumber("Intake Output",intakeMotor.get());
+    p = SmartDashboard.getNumber("Arm P gain",0);
+    i = SmartDashboard.getNumber("Arm I gain",0);
+    d = SmartDashboard.getNumber("Arm D gain",0);
+    if(p != kP) {
+      kP = p;
+      PID.setP(kP);
+    }
+    if(i != kI) {
+      kI = i;
+      PID.setI(kI);
+    }
+    if(d != kD) {
+      kD = d;
+      PID.setD(kD);
+    }
   }
 }
