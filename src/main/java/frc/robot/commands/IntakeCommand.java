@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.IntakeArm;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.math.controller.PIDController;
 import java.util.function.DoubleSupplier;
 
 public class IntakeCommand extends CommandBase {
