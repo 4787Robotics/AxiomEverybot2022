@@ -1,7 +1,7 @@
 <xml version="1.0">
 <dashboard>
 	<widget field="Arm P gain" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="30" y="383"/>
+		<location x="46" y="384"/>
 	</widget>
 	<widget field="Intake Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.ProgressBar">
 		<location x="32" y="461"/>
@@ -31,10 +31,10 @@
 		<location x="41" y="208"/>
 	</widget>
 	<widget field="Arm Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="31" y="353"/>
+		<location x="45" y="352"/>
 	</widget>
 	<widget field="Arm Angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="34" y="336"/>
+		<location x="48" y="336"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
 		<location x="6" y="187"/>
@@ -42,24 +42,25 @@
 		<height>565</height>
 	</static-widget>
 	<widget field="Arm D gain" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="39" y="421"/>
+		<location x="45" y="421"/>
+		<height>19</height>
 	</widget>
 	<widget field="Arm I gain" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="42" y="402"/>
+		<location x="48" y="402"/>
 	</widget>
 </dashboard>
 <live-window>
 	<widget field="DriveTrain" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="24" y="8"/>
+		<location x="15" y="15"/>
 	</widget>
 	<widget field="IntakeArm" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="13" y="31"/>
+		<location x="19" y="31"/>
 	</widget>
 	<widget field="Climber" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="25" y="14"/>
+		<location x="4" y="2"/>
 	</widget>
 	<widget field="Ungrouped" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="26" y="4"/>
+		<location x="13" y="7"/>
 	</widget>
 </live-window>
 </xml>

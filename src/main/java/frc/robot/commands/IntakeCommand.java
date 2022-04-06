@@ -32,10 +32,10 @@ public class IntakeCommand extends CommandBase {
   @Override
   public void execute() {
     intake.positionSetpoint(78 - (83 * armSetpoint.getAsDouble()));
-    if(intake.getPosition() <= 5) {
-      intake.setIntakeSpeed(-1.0);
-    } else {
+    if(ejectSpeedButNotBackwards.getAsDouble() > 0) {
       intake.setIntakeSpeed(ejectSpeedButNotBackwards.getAsDouble());
+    } else if(intake.getPosition() <= 5) {
+      intake.setIntakeSpeed(0.6);
     }
   }
 
