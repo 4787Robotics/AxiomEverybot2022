@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   XboxController controller = new XboxController(0);
+  Joystick joystick = new Joystick(1);
 
   DriveTrain driveTrain = new DriveTrain();
   IntakeArm intake = new IntakeArm();
@@ -31,8 +33,8 @@ public class RobotContainer {
       ()-> controller.getRightTriggerAxis(),
       ()-> controller.getLeftTriggerAxis()
     ),*/
-    new ArmTester(intake, controller)
-    //new ExtendClimber(climber, () -> controller.getLeftTriggerAxis() - controller.getRightTriggerAxis())
+    new ArmTester(intake, controller),
+    new ExtendClimber(climber, () -> joystick.getY())
   );
   Autonomous autonomous = new Autonomous(driveTrain, intake);
 
