@@ -26,9 +26,9 @@ public class DriveTrain extends SubsystemBase {
     m_right1.setInverted(TalonFXInvertType.Clockwise);
     m_right2.setInverted(TalonFXInvertType.Clockwise);
 
-    m_left1.setNeutralMode(NeutralMode.Coast);
+    m_left1.setNeutralMode(NeutralMode.Brake);
     m_left2.setNeutralMode(NeutralMode.Coast);
-    m_right1.setNeutralMode(NeutralMode.Coast);
+    m_right1.setNeutralMode(NeutralMode.Brake);
     m_right2.setNeutralMode(NeutralMode.Coast);
 
     m_left2.follow(m_left1);
