@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.RelativeEncoder;
 
@@ -27,7 +28,8 @@ public class IntakeArm extends SubsystemBase {
     armMotor = new CANSparkMax(Constants.motor_arm, MotorType.kBrushless);
     armEncoder = armMotor.getEncoder();
     intakeMotor = new WPI_TalonSRX(Constants.motor_intake);
-    armMotor.setOpenLoopRampRate(0.1);
+    armMotor.setIdleMode(IdleMode.kBrake);
+    armMotor.setSmartCurrentLimit(35);
     armEncoder.setPositionConversionFactor(360.0 * Constants.armGearing);
     armEncoder.setVelocityConversionFactor(360.0 * Constants.armGearing / 60.0);
     this.setEncoder(0);
@@ -72,8 +74,9 @@ public class IntakeArm extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Arm Angle",armEncoder.getPosition());
-    SmartDashboard.putNumber("Arm Speed",armEncoder.getVelocity());
+    SmartDashboard.putNumber("Arm Output",armMotor.get());
     SmartDashboard.putNumber("Intake Output",intakeMotor.get());
+    SmartDashboard.putNumber("Arm Motor Temp", armMotor.getMotorTemperature());
     p = SmartDashboard.getNumber("Arm P gain",0);
     i = SmartDashboard.getNumber("Arm I gain",0);
     d = SmartDashboard.getNumber("Arm D gain",0);

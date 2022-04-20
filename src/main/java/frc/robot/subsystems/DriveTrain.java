@@ -37,10 +37,10 @@ public class DriveTrain extends SubsystemBase {
     m_right1.setSelectedSensorPosition(0);
     m_left1.setSelectedSensorPosition(0);
 
-    m_left1.configOpenloopRamp(0.7);
-    m_left2.configOpenloopRamp(0.7);
-    m_right1.configOpenloopRamp(0.7);
-    m_right2.configOpenloopRamp(0.7);
+    m_left1.configOpenloopRamp(0.4);
+    m_left2.configOpenloopRamp(0.4);
+    m_right1.configOpenloopRamp(0.4);
+    m_right2.configOpenloopRamp(0.4);
 
     drive = new DifferentialDrive(m_left1,m_right1);
 

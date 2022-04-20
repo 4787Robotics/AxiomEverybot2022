@@ -1,12 +1,32 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Arm Motor Temp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="195" y="355"/>
+	</widget>
+	<widget field="Arm Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="41" y="355"/>
+	</widget>
+	<widget field="Climber Right Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.ProgressBar">
+		<location x="32" y="560"/>
+		<width>172</width>
+		<height>32</height>
+		<property name="Maximum" value="1.0"/>
+		<property name="Minimum" value="-1.0"/>
+	</widget>
+	<widget field="Climber Left Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.ProgressBar">
+		<location x="30" y="512"/>
+		<width>171</width>
+		<height>32</height>
+		<property name="Maximum" value="1.0"/>
+		<property name="Minimum" value="-1.0"/>
+	</widget>
 	<widget field="Arm P gain" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="46" y="384"/>
 	</widget>
 	<widget field="Intake Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.ProgressBar">
-		<location x="32" y="461"/>
+		<location x="32" y="464"/>
 		<width>170</width>
-		<height>35</height>
+		<height>32</height>
 		<property name="Maximum" value="1.0"/>
 		<property name="Minimum" value="-1.0"/>
 	</widget>
@@ -30,9 +50,6 @@
 	<widget field="Left Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="41" y="208"/>
 	</widget>
-	<widget field="Arm Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="45" y="352"/>
-	</widget>
 	<widget field="Arm Angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="48" y="336"/>
 	</widget>
@@ -48,19 +65,22 @@
 	<widget field="Arm I gain" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="48" y="402"/>
 	</widget>
+	<widget field="DriveTrain" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="0" y="0"/>
+	</widget>
 </dashboard>
 <live-window>
 	<widget field="DriveTrain" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="15" y="15"/>
-	</widget>
-	<widget field="IntakeArm" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="19" y="31"/>
+		<location x="24" y="24"/>
 	</widget>
 	<widget field="Climber" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="4" y="2"/>
+		<location x="21" y="11"/>
 	</widget>
 	<widget field="Ungrouped" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="13" y="7"/>
+		<location x="24" y="6"/>
+	</widget>
+	<widget field="IntakeArm" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="8" y="17"/>
 	</widget>
 </live-window>
 </xml>

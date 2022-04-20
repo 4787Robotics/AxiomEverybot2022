@@ -27,7 +27,7 @@ public class ArmTester extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setArmSpeed((controller.getLeftTriggerAxis() - controller.getRightTriggerAxis())*0.7);
+    intake.setArmSpeed((controller.getLeftTriggerAxis() - controller.getRightTriggerAxis())*1);
     /*if(controller.getLeftTriggerAxis()==0 && controller.getRightTriggerAxis()==0 && intake.getPosition() < 7) {
       intake.setArmSpeed(-0.08);
     }*/
