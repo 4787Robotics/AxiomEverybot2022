@@ -23,26 +23,26 @@ public class DriveTrain extends SubsystemBase {
     m_right1 = new WPI_TalonFX(Constants.motor_right1);
     m_right2 = new WPI_TalonFX(Constants.motor_right2);
 
-    m_right1.setInverted(TalonFXInvertType.Clockwise);
-    m_right2.setInverted(TalonFXInvertType.Clockwise);
+    m_right1.setInverted(TalonFXInvertType.Clockwise); // one side runs clockwise, other runs counterclockwise
+    m_right2.setInverted(TalonFXInvertType.Clockwise); // since the motors are facing opposite directions
 
-    m_left1.setNeutralMode(NeutralMode.Brake);
+    m_left1.setNeutralMode(NeutralMode.Brake); // only one motor brakes on each side for a weaker brake effect
     m_left2.setNeutralMode(NeutralMode.Coast);
     m_right1.setNeutralMode(NeutralMode.Brake);
     m_right2.setNeutralMode(NeutralMode.Coast);
 
-    m_left2.follow(m_left1);
+    m_left2.follow(m_left1); // syncs the motors on each side
     m_right2.follow(m_right1);
 
-    m_right1.setSelectedSensorPosition(0);
+    m_right1.setSelectedSensorPosition(0); // for encoder
     m_left1.setSelectedSensorPosition(0);
 
-    m_left1.configOpenloopRamp(0.4);
-    m_left2.configOpenloopRamp(0.4);
+    m_left1.configOpenloopRamp(0.4); // limits acceleration, takes 0.4 seconds to accelerate from 0 to 100%
+    m_left2.configOpenloopRamp(0.4); // (helps keep robot from rocking around violently every time driver stops)
     m_right1.configOpenloopRamp(0.4);
     m_right2.configOpenloopRamp(0.4);
 
-    drive = new DifferentialDrive(m_left1,m_right1);
+    drive = new DifferentialDrive(m_left1,m_right1); // only need to input one motor per side, the other two follow them
 
   }
 
@@ -79,6 +79,7 @@ public class DriveTrain extends SubsystemBase {
     drive.tankDrive(leftSpeed,rightSpeed);
   }
   
+  //unused, tbh dunno why we added this
   public void stop() {
     drive.stopMotor();
   }
@@ -98,14 +99,6 @@ public class DriveTrain extends SubsystemBase {
   public void setZero() {
     m_right1.setSelectedSensorPosition(0);
     m_left1.setSelectedSensorPosition(0);
-  }
-
-  public double getOutput(boolean rightSide) {
-    if(rightSide) {
-      return m_right1.get();
-    } else {
-      return m_left1.get();
-    }
   }
 
   @Override

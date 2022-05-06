@@ -18,8 +18,8 @@ public class Climber extends SubsystemBase {
     motorLeft = new WPI_TalonFX(Constants.motor_climbLeft);
     motorRight = new WPI_TalonFX(Constants.motor_climbRight);
     motorRight.setInverted(true);
-    motorLeft.setNeutralMode(NeutralMode.Brake);
-    motorRight.setNeutralMode(NeutralMode.Brake);
+    motorLeft.setNeutralMode(NeutralMode.Brake); //  brake mode is especially necessary for the climber
+    motorRight.setNeutralMode(NeutralMode.Brake); // so robot doesnt slowly slide down after time is called
   }
 
   public void setSpeed(double speed) {
