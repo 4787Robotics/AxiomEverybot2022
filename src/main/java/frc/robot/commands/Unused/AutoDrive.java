@@ -23,7 +23,7 @@ public class AutoDrive extends CommandBase {
   public AutoDrive(DriveTrain driveTrain, double distance, boolean turn) {
     this.driveTrain = driveTrain;
     if(turn) {
-      this.distance = Constants.turnRadius * distance * Math.PI / 180.0;
+      this.distance = Constants.turnRadius * distance * Math.PI / 180.0; //finds the arc of the turn HL
     } else {
       this.distance = distance;
     }
