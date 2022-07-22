@@ -8,23 +8,58 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
+//import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Timer;
+
+//import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class DriveTrain extends SubsystemBase {
-  private WPI_TalonFX m_left1, m_left2, m_right1, m_right2;
+  private WPI_VictorSPX m_left1, m_left2, m_right1, m_right2;
   private DifferentialDrive drive;
+
+  //private final AHRS gyro = new AHRS(SPI.Port.kMXP); 
+  //private final ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   
+  private static final Timer timer = new Timer();
+  
+  private double previous_time;
+
+  private double totalLeftWheelDistanceMeters;
+  private double totalRightWheelDistanceMeters;
+
+  //private DifferentialDriveOdometry odometry;
+
   /** Creates a new DriveTrain and initializes motor controllers. */
   public DriveTrain() {
-    m_left1 = new WPI_TalonFX(Constants.motor_left1);
-    m_left2 = new WPI_TalonFX(Constants.motor_left2);
-    m_right1 = new WPI_TalonFX(Constants.motor_right1);
-    m_right2 = new WPI_TalonFX(Constants.motor_right2);
 
-    m_right1.setInverted(TalonFXInvertType.Clockwise); // one side runs clockwise, other runs counterclockwise
-    m_right2.setInverted(TalonFXInvertType.Clockwise); // since the motors are facing opposite directions
+    timer.start();
+
+    m_left1 = new WPI_VictorSPX(Constants.motor_left1);
+    m_left2 = new WPI_VictorSPX(Constants.motor_left2);
+    m_right1 = new WPI_VictorSPX(Constants.motor_right1);
+    m_right2 = new WPI_VictorSPX(Constants.motor_right2);
+
+    m_left1.enableVoltageCompensation(true);
+    m_left2.enableVoltageCompensation(true);
+    m_right1.enableVoltageCompensation(true);
+    m_right2.enableVoltageCompensation(true);
+
+    m_right1.setInverted(true); // one side runs clockwise, other runs counterclockwise
+    m_right2.setInverted(true); // since the motors are facing opposite directions
+
+    m_left1.setInverted(false); // one side runs clockwise, other runs counterclockwise
+    m_left2.setInverted(false); // since the motors are facing opposite directions
 
     m_left1.setNeutralMode(NeutralMode.Brake); // only one motor brakes on each side for a weaker brake effect
     m_left2.setNeutralMode(NeutralMode.Coast);
@@ -44,6 +79,9 @@ public class DriveTrain extends SubsystemBase {
 
     drive = new DifferentialDrive(m_left1,m_right1); // only need to input one motor per side, the other two follow them
 
+    setWheelPositionZero();
+    //odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
+
   }
 
   /**
@@ -62,6 +100,86 @@ public class DriveTrain extends SubsystemBase {
     drive.arcadeDrive(maxSpeed*throttle, maxTurnSpeed*steer, false);
   }
 
+  //Driving using voltages
+  public void tankDriveVolts(double leftVolts, double rightVolts) {
+    m_left1.setVoltage(leftVolts);
+    m_right1.setVoltage(rightVolts);
+    drive.feed();
+  }
+  
+  //unused, tbh dunno why we added this
+  public void stop() {
+    drive.stopMotor();
+  }
+  
+  //pretty much unused
+  private void setWheelPositionZero() {
+    totalLeftWheelDistanceMeters = 0;
+    totalRightWheelDistanceMeters = 0;
+  } 
+
+  /* 
+  public void resetOdometry(Pose2d pose) {
+    setWheelPositionZero();
+    odometry.resetPosition(pose, gyro.getRotation2d());
+  }
+  */
+
+  //we do not have encoders on the everybot, so instead, we are just going to use our gyro only
+  /*
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+
+    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(
+      gyro.getVelocityX(), 
+      gyro.getVelocityY(), 
+      gyro.getVelocityZ()
+    );
+
+    return Constants.kinematics.toWheelSpeeds(chassisSpeeds);
+  }
+  */
+  /*
+  public Pose2d getPose() {
+    return odometry.getPoseMeters();
+  }
+  */
+
+  private void trackLeftAndRightDistance(DifferentialDriveWheelSpeeds wheelSpeeds) {
+    double leftVelocity = wheelSpeeds.leftMetersPerSecond;
+
+    double rightVelocity = wheelSpeeds.rightMetersPerSecond;
+
+    double current_time = Timer.getFPGATimestamp();
+
+    double timeElapsedBetweenLoops = current_time - previous_time;
+
+    double leftWheelDistanceMeters = leftVelocity*timeElapsedBetweenLoops;
+    double rightWheelDistanceMeters = rightVelocity*timeElapsedBetweenLoops;
+
+    totalLeftWheelDistanceMeters += leftWheelDistanceMeters;
+    totalRightWheelDistanceMeters += rightWheelDistanceMeters;
+  }
+  
+
+  @Override
+  public void periodic() {
+    SmartDashboard.putNumber("Left Output",m_left1.get());
+    SmartDashboard.putNumber("Right Output",m_right1.get());
+    SmartDashboard.putNumber("Left Position",totalLeftWheelDistanceMeters);
+    SmartDashboard.putNumber("Right Position",totalRightWheelDistanceMeters);
+
+    //DifferentialDriveWheelSpeeds wheelSpeeds = getWheelSpeeds();
+    //trackLeftAndRightDistance(wheelSpeeds);
+
+    //odometry.update(
+    //  gyro.getRotation2d(), 
+    //  totalLeftWheelDistanceMeters, 
+    //  totalRightWheelDistanceMeters
+    //);
+
+  }
+
+  //Unused
   /**
    * Drives and turns at a set speed.
    * @param speed [-1.0..1.0].
@@ -78,34 +196,5 @@ public class DriveTrain extends SubsystemBase {
   public void autonomousTank(double leftSpeed, double rightSpeed) {
     drive.tankDrive(leftSpeed,rightSpeed);
   }
-  
-  //unused, tbh dunno why we added this
-  public void stop() {
-    drive.stopMotor();
-  }
-  
-  /**
-   * @param rightSide Gets encoder position from right side if true, otherwise left side.
-   * @return Total distance driven in meters, as measured by TalonFX encoders.
-   */
-  public double getPosition(boolean rightSide) {
-    if(rightSide) {
-      return m_right1.getSelectedSensorPosition() * Constants.driveGearing * (Math.PI/180.0) * 0.1524;
-    } else {
-      return m_left1.getSelectedSensorPosition() * Constants.driveGearing * (Math.PI/180.0) * 0.1524;
-    }
-  }
-  
-  public void setZero() {
-    m_right1.setSelectedSensorPosition(0);
-    m_left1.setSelectedSensorPosition(0);
-  }
 
-  @Override
-  public void periodic() {
-    SmartDashboard.putNumber("Left Output",m_left1.get());
-    SmartDashboard.putNumber("Right Output",m_right1.get());
-    SmartDashboard.putNumber("Left Position",this.getPosition(false));
-    SmartDashboard.putNumber("Right Position",this.getPosition(true));
-  }
 }

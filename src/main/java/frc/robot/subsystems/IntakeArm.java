@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+//import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -29,12 +29,14 @@ public class IntakeArm extends SubsystemBase {
     // make sure to set motortype for spark max, if it's incorrect it may damage the NEOs
     armMotor = new CANSparkMax(Constants.motor_arm, MotorType.kBrushless);
     armEncoder = armMotor.getEncoder();
-    intakeMotor = new WPI_TalonSRX(Constants.motor_intake);
+    
     armMotor.setIdleMode(IdleMode.kBrake); // equivalent to setNeutralMode from CTRE Phoenix library (the one for Falcon 500)
     armMotor.setSmartCurrentLimit(35); // mitigates current spikes so the NEOs don't fry themselves like they did at Midwest
     armEncoder.setPositionConversionFactor(360.0 * Constants.armGearing); // for encoder
     armEncoder.setVelocityConversionFactor(360.0 * Constants.armGearing / 60.0); // ^
     this.setEncoder(0);
+
+    intakeMotor = new WPI_TalonSRX(Constants.motor_intake);
 
     /* all unused but apparently you can run PID directly on the Spark Max for better response and accuracy
       (as opposed to using WPI's PID that runs on the RoboRIO) */

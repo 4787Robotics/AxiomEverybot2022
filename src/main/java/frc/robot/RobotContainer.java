@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,18 +22,19 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private XboxController controller;
   private Joystick joystick;
-  private DriveTrain driveTrain;
+  public static DriveTrain driveTrain = new DriveTrain();
   private IntakeArm intake;
   private Climber climber;
   private ParallelCommandGroup teleopCommand;
   private Autonomous autoCommand;
+  //private static PathFollowingAutonomousCommand autoCommand = new PathFollowingAutonomousCommand();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     controller = new XboxController(0);
     joystick = new Joystick(1);
 
-    driveTrain = new DriveTrain();
+   
     intake = new IntakeArm();
     climber = new Climber();
     
@@ -56,6 +58,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     return autoCommand;
+    //return autoCommand.createAutonomousCommand(trajectory);
   }
   
   /**
@@ -65,5 +68,9 @@ public class RobotContainer {
    */
   public Command getTeleopCommand() {
     return teleopCommand;
+  }
+
+  public void resetOdometry() {
+  //  autoCommand.resetOdometryInitialPose();
   }
 }
