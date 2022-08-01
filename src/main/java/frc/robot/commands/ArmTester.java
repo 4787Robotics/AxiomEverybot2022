@@ -28,10 +28,14 @@ public class ArmTester extends CommandBase {
   @Override
   public void execute() {
     intake.setArmSpeed((controller.getLeftTriggerAxis() - controller.getRightTriggerAxis())*1);
-    
-    if(controller.getLeftTriggerAxis()==0 && controller.getRightTriggerAxis()==0 && intake.getPosition() < 10) {
-      intake.setArmSpeed(-0.40);
+    /*
+    if(controller.getLeftTriggerAxis()==0 && 
+    controller.getRightTriggerAxis()==0 && 
+    intake.getPosition() < 7
+    ) {
+      intake.setArmSpeed(-1.00);
     }
+    */
     
 
     if(controller.getRawButton(5)) {

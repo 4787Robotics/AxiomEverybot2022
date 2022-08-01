@@ -19,7 +19,7 @@ public class Autonomous extends SequentialCommandGroup {
   public Autonomous(DriveTrain driveTrain, IntakeArm intake) {
     addCommands(
       new ParallelRaceGroup(new AutoShoot(intake, -1), new WaitCommand(2)), //shoots the ball
-      new ParallelRaceGroup(new Drive(driveTrain,-0.3,0), new WaitCommand(2))
+      new ParallelRaceGroup(new Drive(driveTrain,-0.5,0), new WaitCommand(1.5))
       /*new AutoDrive(driveTrain, 180, true), //turns 180 degrees
       new AutoRaise(intake, false), //lowers the arm
       new ParallelRaceGroup(new AutoShoot(intake, -1), new FindBall(driveTrain, true)), //finds the ball and intakes it

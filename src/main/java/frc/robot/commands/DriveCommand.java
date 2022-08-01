@@ -24,9 +24,9 @@ public class DriveCommand extends CommandBase {
     @Override
     public void execute() {
         if(slow.getAsBoolean()) {
-            driveTrain.manualDrive(throttle.getAsDouble(), steer.getAsDouble(), 0.2, 0.2, true);
+            driveTrain.manualDrive(throttle.getAsDouble(), steer.getAsDouble(), 0.4, 0.4, true);
         } else {
-            driveTrain.manualDrive(throttle.getAsDouble(), steer.getAsDouble(), 0.65, 0.4, true);
+            driveTrain.manualDrive(throttle.getAsDouble(), steer.getAsDouble(), 0.9, 0.8, true);
         }
     }
 

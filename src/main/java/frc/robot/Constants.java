@@ -27,11 +27,11 @@ public final class Constants {
     public static int motor_climbRight = 7;
 
     // Encoder ratios (both very very wrong)
-    //public static double driveGearing = 1.0/60.0;
-    //public static double armGearing = 1.0/80.0;
+    public static double driveGearing = 1.0/60.0;
+    public static double armGearing = 1.0/80.0;
     
-    public static double driveGearing = 10.71/1;
-    public static double armGearing = 16/1; 
+    //public static double driveGearing = 10.71/1;
+    //public static double armGearing = 16/1; 
     //^^ie the motor needs to spin 16 times for the arm to turn once
 
     public static String circleTrajectoryJSON = "paths/Circle.wpilib.json";

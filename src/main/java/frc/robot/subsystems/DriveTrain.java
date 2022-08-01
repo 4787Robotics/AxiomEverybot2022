@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -72,10 +71,10 @@ public class DriveTrain extends SubsystemBase {
     m_right1.setSelectedSensorPosition(0); // for encoder
     m_left1.setSelectedSensorPosition(0);
 
-    m_left1.configOpenloopRamp(0.4); // limits acceleration, takes 0.4 seconds to accelerate from 0 to 100%
-    m_left2.configOpenloopRamp(0.4); // (helps keep robot from rocking around violently every time driver stops)
-    m_right1.configOpenloopRamp(0.4);
-    m_right2.configOpenloopRamp(0.4);
+    m_left1.configOpenloopRamp(0.2); // limits acceleration, takes 0.4 seconds to accelerate from 0 to 100%
+    m_left2.configOpenloopRamp(0.2); // (helps keep robot from rocking around violently every time driver stops)
+    m_right1.configOpenloopRamp(0.2);
+    m_right2.configOpenloopRamp(0.2);
 
     drive = new DifferentialDrive(m_left1,m_right1); // only need to input one motor per side, the other two follow them
 
